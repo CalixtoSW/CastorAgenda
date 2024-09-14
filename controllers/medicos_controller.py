@@ -1,6 +1,7 @@
 # CastorAgenda\CastorAgenda\controllers\medicos_controller.py
 from engine.database_fetchall import DatabaseFetchAll
 
+
 class MedicosController:
     def __init__(self, db_fetch_all: DatabaseFetchAll):
         self.db = db_fetch_all
@@ -15,7 +16,7 @@ class MedicosController:
 
         # Adiciona a especialidade padrão "CLINICA GERAL"
         self.add_especialidade_medico(medico_id,
-            "SELECT id FROM public.especialidades WHERE nome = 'CLINICA GERAL'")
+                                      "SELECT id FROM public.especialidades WHERE nome = 'CLINICA GERAL'")
 
         # Adiciona outras especialidades, se fornecidas
         if especialidades_ids:
@@ -74,6 +75,27 @@ class MedicosController:
         result = self.db.execute_query_fetchone(query)
         return result['id'] if result else None
 
+    def update_medico(self, id, nome, crm, especialidades):
+        # Atualiza as informações do médico
+        query = f"UPDATE public.medicos SET nome = '{nome}', crm = '{crm}' WHERE id = {id}"
+        self.db.execute_query_ddl(query)
 
+        # Atualiza as especialidades
+        self.update_especialidades(id, especialidades)
 
+    def update_especialidades(self, medico_id, especialidades):
+        # Remove todas as especialidades atuais do médico
+        delete_query = f"DELETE FROM public.especialidade_medico WHERE medico_id = {medico_id}"
+        self.db.execute_query_ddl(delete_query)
 
+        # Adiciona as novas especialidades
+        for especialidade in especialidades:
+            especialidade_id = self.get_id_by_name(especialidade)
+            if especialidade_id:
+                self.add_especialidade_medico(medico_id, especialidade_id)
+
+    def remove_especialidade_medico(self, medico_id, especialidade_id):
+        # Implementação para remover a especialidade do médico
+        query = "DELETE FROM especialidades_medicos WHERE medico_id = %s AND especialidade_id = %s"
+        self.db.execute(query, (medico_id, especialidade_id))
+        self.db.commit()

@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Login Funcionando...">
-      <change afterPath="$PROJECT_DIR$/templates/editar_especialidade.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/editar_medico.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/especialidades.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/medico.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/medico_form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/navbar.html" afterDir="false" />
+    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Cadastro de médico editando&#10;validar processo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CastorAgenda.py" beforeDir="false" afterPath="$PROJECT_DIR$/CastorAgenda.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/especialidades_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/especialidades_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/medicos_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/medicos_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/database_fetchall.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/database_fetchall.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/agenda.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/agenda.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/editar_medico.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/editar_medico.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -285,7 +275,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726332778973</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Cadastro de médico editando&#10;validar processo">
+      <option name="closed" value="true" />
+      <created>1726343459331</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1726343459331</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,12 +306,13 @@
     <MESSAGE value="Conexão DB Postgres - Create" />
     <MESSAGE value="Build Inicial do App" />
     <MESSAGE value="Login Funcionando..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Login Funcionando..." />
+    <MESSAGE value="Cadastro de médico editando&#10;validar processo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cadastro de médico editando&#10;validar processo" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CastorAgenda$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1726320674157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/CastorAgenda$config_db.coverage" NAME="config_db Coverage Results" MODIFIED="1726324409785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
-    <SUITE FILE_PATH="coverage/CastorAgenda$Flask__CastorAgenda_py_.coverage" NAME="Flask (CastorAgenda.py) Coverage Results" MODIFIED="1726343186956" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CastorAgenda$Flask__CastorAgenda_py_.coverage" NAME="Flask (CastorAgenda.py) Coverage Results" MODIFIED="1726343910506" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CastorAgenda$database_fetchall.coverage" NAME="database_fetchall Coverage Results" MODIFIED="1726341712850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
     <SUITE FILE_PATH="coverage/CastorAgenda$medicos_controller.coverage" NAME="medicos_controller Coverage Results" MODIFIED="1726342408503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$exemplo.coverage" NAME="exemplo Coverage Results" MODIFIED="1726326549259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />

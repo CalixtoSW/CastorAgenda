@@ -16,6 +16,7 @@ usuario_controller = UsuarioController(db_fetch_all)
 especialidade_controller = EspecialidadeController(db_fetch_all)
 medicos_controller = MedicosController(db_fetch_all)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -77,7 +78,7 @@ def editar_especialidade(id):
         return redirect(url_for('especialidades'))
     else:
         especialidades = especialidade_controller.read_especialidades()
-        especialidade = next((e for e in especialidades if e.id == id), None)
+        especialidade = next((e for e in especialidades if e['id'] == id), None)
         if especialidade:
             return render_template('editar_especialidade.html', especialidade=especialidade)
         return redirect(url_for('especialidades'))
@@ -118,7 +119,6 @@ def create_medico():
 def list_medicos():
     if 'user_id' in login_session:
         medicos = medicos_controller.read_medicos()
-        print(medicos)  # Para depuração
         return render_template('medico.html', medicos=medicos)
     return redirect(url_for('login'))
 
@@ -130,28 +130,27 @@ def update_medico(id):
         crm = request.form['crm']
         especialidades_ids = request.form.getlist('especialidades')
 
-        medicos_controller.update_medico(id, nome, crm)
-        medicos_controller.remove_especialidades_medico(id)
-
-        for especialidade_id in especialidades_ids:
-            medicos_controller.add_especialidade_medico(id, especialidade_id)
-
+        medicos_controller.update_medico(id, nome, crm, especialidades_ids)
         return redirect(url_for('list_medicos'))
 
     medico = medicos_controller.read_medico_by_id(id)
 
     if isinstance(medico, dict) and 'especialidades' in medico:
         especialidades = especialidade_controller.read_especialidades()
-
-        special_medico = [especialidade_controller.get_id_by_name(e) for e in medico['especialidades']]
-
+        especialidades_ids = [especialidade_controller.get_id_by_name(e) for e in medico['especialidades']]
         return render_template('editar_medico.html', medico=medico, especialidades=especialidades,
-                               special_medico=special_medico)
+                               especialidades_ids=especialidades_ids)
 
     return redirect(url_for('list_medicos'))
 
+@app.route('/medicos/remove_especialidade/<int:id>/<int:especialidade_id>', methods=['POST'])
+def remove_especialidade_medico(id, especialidade_id):
+    if 'user_id' in login_session:
+        medicos_controller.remove_especialidade_medico(id, especialidade_id)
+        return redirect(url_for('editar_medico', id=id))
+    return redirect(url_for('login'))
 
-@app.route('/medicos/delete/<int:id>')
+@app.route('/medicos/delete/<int:id>', methods=['POST'])
 def delete_medico(id):
     if 'user_id' in login_session:
         medicos_controller.delete_medico(id)
