@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Init Master">
-      <change afterPath="$PROJECT_DIR$/engine/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/config_db.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/conn.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/exemplo.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Conexão DB Postgres - Create">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/engine/database_fetchall.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/config_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/config_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/conn.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/conn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/exemplo.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/exemplo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,8 +60,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Flask server.Flask (app.py).executor": "Run",
+    "Python.config_db.executor": "Run",
     "Python.exemplo.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "Development",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -68,9 +71,37 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
 }]]></component>
   <component name="RunManager" selected="Python.exemplo">
+    <configuration name="config_db" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CastorAgenda" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/engine" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/engine/config_db.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="exemplo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CastorAgenda" />
       <option name="ENV_FILES" value="" />
@@ -129,6 +160,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.exemplo" />
+        <item itemvalue="Python.config_db" />
         <item itemvalue="Flask server.Flask (CastorAgenda.py)" />
       </list>
     </recent_temporary>
@@ -149,7 +181,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726320498859</updated>
-      <workItem from="1726320502148" duration="2080000" />
+      <workItem from="1726320502148" duration="5169000" />
     </task>
     <task id="LOCAL-00001" summary="Start Flask Projeto de Agendas Web em python para consultorios médicos de forma simples e facil gerenciar">
       <option name="closed" value="true" />
@@ -167,7 +199,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726321818056</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Conexão DB Postgres - Create">
+      <option name="closed" value="true" />
+      <created>1726323283168</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726323283168</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,10 +227,12 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Start Flask Projeto de Agendas Web em python para consultorios médicos de forma simples e facil gerenciar" />
     <MESSAGE value="Init Master" />
-    <option name="LAST_COMMIT_MESSAGE" value="Init Master" />
+    <MESSAGE value="Conexão DB Postgres - Create" />
+    <option name="LAST_COMMIT_MESSAGE" value="Conexão DB Postgres - Create" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CastorAgenda$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1726320674157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/CastorAgenda$exemplo.coverage" NAME="exemplo Coverage Results" MODIFIED="1726322991514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
+    <SUITE FILE_PATH="coverage/CastorAgenda$config_db.coverage" NAME="config_db Coverage Results" MODIFIED="1726324409785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
+    <SUITE FILE_PATH="coverage/CastorAgenda$exemplo.coverage" NAME="exemplo Coverage Results" MODIFIED="1726326549259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
   </component>
 </project>
