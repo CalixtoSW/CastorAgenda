@@ -1,22 +1,79 @@
-# Castor_Agenda/controllers/Medicoss_controller.py
+# CastorAgenda\CastorAgenda\controllers\medicos_controller.py
 from engine.database_fetchall import DatabaseFetchAll
 
 class MedicosController:
     def __init__(self, db_fetch_all: DatabaseFetchAll):
         self.db = db_fetch_all
 
-    def create_Medicos(self, nome):
-        query = f"INSERT INTO medicos (nome) VALUES ('{nome}')"
+    def create_medico(self, nome, crm, especialidades_ids=None):
+        query = f"""
+        INSERT INTO public.medicos (nome, crm) 
+        VALUES ('{nome}', '{crm}') 
+        RETURNING id
+        """
+        medico_id = self.db.execute_query_fetchone(query)['id']
+
+        # Adiciona a especialidade padrão "CLINICA GERAL"
+        self.add_especialidade_medico(medico_id,
+            "SELECT id FROM public.especialidades WHERE nome = 'CLINICA GERAL'")
+
+        # Adiciona outras especialidades, se fornecidas
+        if especialidades_ids:
+            self.add_especialidades(medico_id, especialidades_ids)
+
+        return medico_id
+
+    def add_especialidade_medico(self, medico_id, especialidade_id):
+        query = f"""
+        INSERT INTO public.especialidade_medico (medico_id, especialidade_id)
+        VALUES ({medico_id}, ({especialidade_id}))
+        """
         self.db.execute_query_ddl(query)
 
-    def read_Medicoss(self):
-        query = "SELECT * FROM medicos WHERE dt_exclusao IS NULL"
-        return self.db.execute_query_df(query)
+    def add_especialidades(self, medico_id, especialidades_ids):
+        for especialidade_id in especialidades_ids:
+            self.add_especialidade_medico(medico_id, especialidade_id)
 
-    def update_Medicos(self, id, new_nome):
-        query = f"UPDATE medicos SET nome = '{new_nome}' WHERE id = {id} AND dt_exclusao IS NULL"
-        self.db.execute_query_ddl(query)
+    def read_medicos(self):
+        query = """
+        SELECT medicos.id, medicos.nome, medicos.crm, 
+               ARRAY_AGG(especialidades.nome) AS especialidades, 
+               medicos.dt_criacao 
+        FROM public.medicos 
+        JOIN public.especialidade_medico ON medicos.id = especialidade_medico.medico_id
+        JOIN public.especialidades ON especialidade_medico.especialidade_id = especialidades.id
+        WHERE medicos.dt_exclusao IS NULL
+        GROUP BY medicos.id
+        """
+        df = self.db.execute_query_df(query)
 
-    def delete_Medicos(self, id):
-        query = f"UPDATE medicos SET dt_exclusao = NOW() WHERE id = {id}"
-        self.db.execute_query_ddl(query)
+        # Convertendo o DataFrame para uma lista de dicionários
+        medicos = df.to_dict(orient='records')
+        return medicos
+
+    def read_medico_by_id(self, medico_id):
+        query = f"""
+        SELECT medicos.id, medicos.nome, medicos.crm, 
+               ARRAY_AGG(especialidades.nome) AS especialidades, 
+               medicos.dt_criacao 
+        FROM public.medicos 
+        JOIN public.especialidade_medico ON medicos.id = especialidade_medico.medico_id
+        JOIN public.especialidades ON especialidade_medico.especialidade_id = especialidades.id
+        WHERE medicos.id = {medico_id} AND medicos.dt_exclusao IS NULL
+        GROUP BY medicos.id
+        """
+        result = self.db.execute_query_fetchone(query)
+        return result
+
+    def read_especialidades(self):
+        query = "SELECT id, nome FROM public.especialidades"
+        return self.db.execute_query_fetchall(query)
+
+    def get_id_by_name(self, nome):
+        query = f"SELECT id FROM public.especialidades WHERE nome = '{nome}'"
+        result = self.db.execute_query_fetchone(query)
+        return result['id'] if result else None
+
+
+
+

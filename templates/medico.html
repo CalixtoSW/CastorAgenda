@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Lista de Médicos</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CRM</th>
+                <th>Especialidades</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for medico in medicos %}
+            <tr>
+                <td>{{ medico.nome }}</td>
+                <td>{{ medico.crm }}</td>
+                <td>{{ medico.especialidades }}</td>
+                <td>
+                    <a href="{{ url_for('update_medico', id=medico.id) }}" class="btn btn-warning">Editar</a>
+                    <a href="{{ url_for('delete_medico', id=medico.id) }}" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

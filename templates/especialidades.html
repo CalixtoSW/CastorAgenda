@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Cadastro de Especialidades</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="nome">Nome da Especialidade</label>
+            <input type="text" name="nome" class="form-control" id="nome" required style="text-transform: uppercase;">
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+    </form>
+    <hr>
+    <h3>Lista de Especialidades</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Data de Criação</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for especialidade in especialidades %}
+            <tr>
+                <td>{{ especialidade.id }}</td>
+                <td>{{ especialidade.nome }}</td>
+                <td>{{ especialidade.data_criacao }}</td>
+                <td><a href="{{ url_for('editar_especialidade', id=especialidade.id) }}" class="btn btn-warning">Editar</a></td>
+                <td>
+                    <form action="{{ url_for('excluir_especialidade', id=especialidade.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

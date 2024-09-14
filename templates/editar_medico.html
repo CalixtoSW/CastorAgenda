@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Editar Médico</h2>
+    <form method="POST" action="{{ url_for('update_medico', id=medico.id) }}">
+        <div class="form-group">
+            <label for="nome">Nome do Médico</label>
+            <input type="text" name="nome" class="form-control" id="nome" value="{{ medico.nome }}" required>
+        </div>
+        <div class="form-group">
+            <label for="crm">CRM</label>
+            <input type="text" name="crm" class="form-control" id="crm" value="{{ medico.crm }}" required>
+        </div>
+        <div class="form-group">
+            <label for="especialidades">Especialidades</label>
+            <select name="especialidades" class="form-control" id="especialidades" multiple required>
+                {% for especialidade in especialidades %}
+                <option value="{{ especialidade.id }}"
+                  {% if especialidade.id|string in medico_especialidades %}selected{% endif %}>
+                  {{ especialidade.nome }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+</div>
+{% endblock %}

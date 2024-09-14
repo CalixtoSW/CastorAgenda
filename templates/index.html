@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h1>Bem-vindo ao Sistema de Agenda Médica</h1>
+<div class="jumbotron">
+    <h1 class="display-4">Bem-vindo à Castor Agenda!</h1>
+    <p class="lead">Organize suas especialidades de forma fácil e rápida.</p>
+    <hr class="my-4">
+    <a class="btn btn-primary btn-lg" href="{{ url_for('especialidades') }}" role="button">Cadastrar Especialidades</a>
+</div>
 {% endblock %}
