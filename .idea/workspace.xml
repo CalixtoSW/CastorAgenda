@@ -5,13 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Conexão DB Postgres - Create">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/database_fetchall.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/especialidades_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/agendamentos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/especialidades.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/medicos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/salas.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/config_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/config_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/conn.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/conn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/exemplo.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/exemplo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CastorAgenda.py" beforeDir="false" afterPath="$PROJECT_DIR$/CastorAgenda.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +29,7 @@
       <list>
         <option value="Flask Main" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -34,21 +41,21 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "CalixtoSW"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;CalixtoSW&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/CalixtoSW/CastorAgenda.git",
-    "accountId": "23381f49-e36e-4e6c-a49c-f9661bf0d8cd"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/CalixtoSW/CastorAgenda.git&quot;,
+    &quot;accountId&quot;: &quot;23381f49-e36e-4e6c-a49c-f9661bf0d8cd&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2m40N6iS5DO4xhfTBir07gvdhcM" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -59,6 +66,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "Flask server.Flask (app.py).executor": "Run",
     "Python.config_db.executor": "Run",
     "Python.exemplo.executor": "Run",
@@ -78,7 +86,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Python.exemplo">
+  <component name="RunManager" selected="Flask server.Flask (CastorAgenda.py)">
     <configuration name="config_db" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CastorAgenda" />
       <option name="ENV_FILES" value="" />
@@ -159,9 +167,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flask server.Flask (CastorAgenda.py)" />
         <item itemvalue="Python.exemplo" />
         <item itemvalue="Python.config_db" />
-        <item itemvalue="Flask server.Flask (CastorAgenda.py)" />
+        <item itemvalue="Python.exemplo" />
+        <item itemvalue="Python.config_db" />
       </list>
     </recent_temporary>
   </component>
