@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Nova rotina pra entidade medico_controller.py">
+    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Removido Arquivos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CastorAgenda.py" beforeDir="false" afterPath="$PROJECT_DIR$/CastorAgenda.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/app_context.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/app_context.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/medico_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/medico_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/medicos_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/medicos_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/database_fetchall.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/database_fetchall.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/medicos_controller.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/agenda.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/agenda.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/medico.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/medico.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/medicos.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +307,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726420864377</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Removido Arquivos">
+      <option name="closed" value="true" />
+      <created>1726436278527</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1726436278527</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -332,7 +340,8 @@
     <MESSAGE value="Login Funcionando..." />
     <MESSAGE value="Cadastro de médico editando&#10;validar processo" />
     <MESSAGE value="Nova rotina pra entidade medico_controller.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Nova rotina pra entidade medico_controller.py" />
+    <MESSAGE value="Removido Arquivos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removido Arquivos" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CastorAgenda$controller_context.coverage" NAME="controller_context Coverage Results" MODIFIED="1726415947698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
@@ -341,7 +350,7 @@
     <SUITE FILE_PATH="coverage/CastorAgenda$test.coverage" NAME="test Coverage Results" MODIFIED="1726416386525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$app_context__1_.coverage" NAME="app_context (1) Coverage Results" MODIFIED="1726416156185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$database_fetchall.coverage" NAME="database_fetchall Coverage Results" MODIFIED="1726341712850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
-    <SUITE FILE_PATH="coverage/CastorAgenda$Flask__CastorAgenda_py_.coverage" NAME="Flask (CastorAgenda.py) Coverage Results" MODIFIED="1726436137447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CastorAgenda$Flask__CastorAgenda_py_.coverage" NAME="Flask (CastorAgenda.py) Coverage Results" MODIFIED="1726437762937" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CastorAgenda$medicos_controller.coverage" NAME="medicos_controller Coverage Results" MODIFIED="1726355328640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$exemplo.coverage" NAME="exemplo Coverage Results" MODIFIED="1726326549259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
     <SUITE FILE_PATH="coverage/CastorAgenda$medico_controller.coverage" NAME="medico_controller Coverage Results" MODIFIED="1726422662615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />

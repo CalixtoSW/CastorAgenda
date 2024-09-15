@@ -18,4 +18,7 @@ class MedicoController:
         INSERT INTO public.medicos (nome, crm, dt_criacao)
         VALUES (:nome, :crm, NOW())
         """
-        return self.db_fetch_all.execute_query_ddl(insert_medico_query)
+        params = {'nome': nome, 'crm': crm}
+        return self.db_fetch_all.execute_query_ddl(insert_medico_query, params)
+
+

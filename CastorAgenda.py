@@ -112,10 +112,34 @@ def listar_medicos():
 @app.route('/medicos/novo', methods=['POST'])
 def novo_medico():
     if 'user_id' in login_session:
+        nome = request.form.get('nome')  # Verifica se 'nome' está sendo enviado
+        crm = request.form.get('crm')    # Verifica se 'crm' está sendo enviado
+        print(f"Nome: {nome}, CRM: {crm}")  # Depuração: Verifica o que está sendo enviado
+        if nome and crm:
+            medico_controller.inserir_medico(nome, crm)
+            return redirect(url_for('listar_medicos'))
+        else:
+            return 'Erro: Nome e CRM são obrigatórios.', 400
+    return redirect(url_for('login'))
+
+
+
+@app.route('/medicos/edit/<int:id>', methods=['GET', 'POST'])
+def update_medico(id):
+    if request.method == 'POST':
         nome = request.form['nome']
         crm = request.form['crm']
-        especialidade_id = request.form.get('especialidade', 1)
-        medico_controller.inserir_medico(nome, crm, [especialidade_id])
+        especialidades_ids = request.form.getlist('especialidades')
+
+        # medicos_controller.update_medico(id, nome, crm, especialidades_ids)
+        return redirect(url_for('list_medicos'))
+
+    medico = 1
+
+@app.route('/medicos/delete/<int:id>', methods=['POST'])
+def delete_medico(id):
+    if 'user_id' in login_session:
+        # medicos_controller.delete_medico(id)
         return redirect(url_for('list_medicos'))
     return redirect(url_for('login'))
 
