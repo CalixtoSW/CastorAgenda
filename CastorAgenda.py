@@ -3,18 +3,22 @@ from engine.database_fetchall import DatabaseFetchAll
 from controllers.usuarios_controller import UsuarioController
 from controllers.especialidades_controller import EspecialidadeController
 from controllers.medicos_controller import MedicosController
+from controllers.medico_controller import MedicoController
 from engine.config_db import DatabaseConfig
 
 app = Flask(__name__)
-app.secret_key = 'YOUR_SECRET_KEY'
+app.secret_key = '1245fvcx323423423dfdscxvxvcxgerr43'
 
+# Configuração do banco de dados e instância do DatabaseFetchAll
 config = DatabaseConfig()
 DATABASE_URL = config.get_uri()
-
 db_fetch_all = DatabaseFetchAll(DATABASE_URL)
+
+# Inicialização dos controladores com a conexão configurada
 usuario_controller = UsuarioController(db_fetch_all)
 especialidade_controller = EspecialidadeController(db_fetch_all)
 medicos_controller = MedicosController(db_fetch_all)
+medico_controller = MedicoController(db_fetch_all)
 
 
 @app.route('/')
@@ -58,7 +62,7 @@ def especialidades():
             nome = request.form['nome']
             if nome:
                 especialidade_controller.create_especialidade(nome)
-                return redirect(url_for('especialidades'))  # Redirecionar para evitar reenvio do formulário
+                return redirect(url_for('especialidades'))  # Evitar reenvio do formulário
         especialidades = especialidade_controller.read_especialidades()
         return render_template('especialidades.html', especialidades=especialidades)
     return redirect(url_for('login'))
@@ -143,6 +147,7 @@ def update_medico(id):
 
     return redirect(url_for('list_medicos'))
 
+
 @app.route('/medicos/remove_especialidade/<int:id>/<int:especialidade_id>', methods=['POST'])
 def remove_especialidade_medico(id, especialidade_id):
     if 'user_id' in login_session:
@@ -150,12 +155,21 @@ def remove_especialidade_medico(id, especialidade_id):
         return redirect(url_for('editar_medico', id=id))
     return redirect(url_for('login'))
 
+
 @app.route('/medicos/delete/<int:id>', methods=['POST'])
 def delete_medico(id):
     if 'user_id' in login_session:
         medicos_controller.delete_medico(id)
         return redirect(url_for('list_medicos'))
     return redirect(url_for('login'))
+
+
+# Nova rota de listar médicos utilizando o MedicoController
+@app.route('/medico')
+def listar_medicos():
+    # Obtém a lista de médicos do MedicoController
+    medicos = medico_controller.listar_medicos()
+    return render_template('medico.html', medicos=medicos)
 
 
 if __name__ == '__main__':
