@@ -3,6 +3,34 @@
 {% block content %}
 <div class="container mt-5">
     <h2>Lista de Médicos</h2>
+
+    <!-- Botão para adicionar novo médico -->
+    <button class="btn btn-primary mb-3" id="btn-novo-medico">Adicionar Novo Médico</button>
+
+    <!-- Formulário para inserir novo médico, inicialmente escondido -->
+    <div id="novo-medico-form" style="display: none;">
+        <form action="{{ url_for('novo_medico') }}" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="crm">CRM</label>
+                <input type="text" class="form-control" id="crm" name="crm" required>
+            </div>
+            <div class="form-group">
+                <label for="especialidade">Especialidade</label>
+                <select class="form-control" id="especialidade" name="especialidade">
+                    <option value="1">Clínica Geral</option>
+                    <!-- Adicione outras especialidades se necessário -->
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <button type="button" class="btn btn-secondary" id="btn-cancelar">Cancelar</button>
+        </form>
+    </div>
+
+    <!-- Tabela de médicos -->
     <table class="table">
         <thead>
             <tr>
@@ -27,4 +55,18 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    // Mostrar o formulário de novo médico ao clicar no botão
+    document.getElementById('btn-novo-medico').addEventListener('click', function() {
+        document.getElementById('novo-medico-form').style.display = 'block';
+        this.style.display = 'none';
+    });
+
+    // Cancelar a adição de novo médico
+    document.getElementById('btn-cancelar').addEventListener('click', function() {
+        document.getElementById('novo-medico-form').style.display = 'none';
+        document.getElementById('btn-novo-medico').style.display = 'block';
+    });
+</script>
 {% endblock %}

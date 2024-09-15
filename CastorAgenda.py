@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session as
 from engine.database_fetchall import DatabaseFetchAll
 from controllers.usuarios_controller import UsuarioController
 from controllers.especialidades_controller import EspecialidadeController
-from controllers.medicos_controller import MedicosController
+# from controllers.medicos_controller import MedicosController
 from controllers.medico_controller import MedicoController
 from engine.config_db import DatabaseConfig
 
@@ -17,7 +17,7 @@ db_fetch_all = DatabaseFetchAll(DATABASE_URL)
 # Inicialização dos controladores com a conexão configurada
 usuario_controller = UsuarioController(db_fetch_all)
 especialidade_controller = EspecialidadeController(db_fetch_all)
-medicos_controller = MedicosController(db_fetch_all)
+# medicos_controller = MedicosController(db_fetch_all)
 medico_controller = MedicoController(db_fetch_all)
 
 
@@ -103,74 +103,21 @@ def logout():
     return redirect(url_for('index'))
 
 
-# Rotas de Médicos
-@app.route('/medicos', methods=['GET', 'POST'])
-def create_medico():
-    if 'user_id' in login_session:
-        if request.method == 'POST':
-            nome = request.form['nome']
-            crm = request.form['crm']
-            especialidades_ids = request.form.getlist('especialidades')
-            medicos_controller.create_medico(nome, crm, especialidades_ids)
-            return redirect(url_for('list_medicos'))
-
-        especialidades = especialidade_controller.read_especialidades()
-        return render_template('medico_form.html', especialidades=especialidades)
-    return redirect(url_for('login'))
-
-
-@app.route('/medicos/list')
-def list_medicos():
-    if 'user_id' in login_session:
-        medicos = medicos_controller.read_medicos()
-        return render_template('medico.html', medicos=medicos)
-    return redirect(url_for('login'))
-
-
-@app.route('/medicos/edit/<int:id>', methods=['GET', 'POST'])
-def update_medico(id):
-    if request.method == 'POST':
-        nome = request.form['nome']
-        crm = request.form['crm']
-        especialidades_ids = request.form.getlist('especialidades')
-
-        medicos_controller.update_medico(id, nome, crm, especialidades_ids)
-        return redirect(url_for('list_medicos'))
-
-    medico = medicos_controller.read_medico_by_id(id)
-
-    if isinstance(medico, dict) and 'especialidades' in medico:
-        especialidades = especialidade_controller.read_especialidades()
-        especialidades_ids = [especialidade_controller.get_id_by_name(e) for e in medico['especialidades']]
-        return render_template('editar_medico.html', medico=medico, especialidades=especialidades,
-                               especialidades_ids=especialidades_ids)
-
-    return redirect(url_for('list_medicos'))
-
-
-@app.route('/medicos/remove_especialidade/<int:id>/<int:especialidade_id>', methods=['POST'])
-def remove_especialidade_medico(id, especialidade_id):
-    if 'user_id' in login_session:
-        medicos_controller.remove_especialidade_medico(id, especialidade_id)
-        return redirect(url_for('editar_medico', id=id))
-    return redirect(url_for('login'))
-
-
-@app.route('/medicos/delete/<int:id>', methods=['POST'])
-def delete_medico(id):
-    if 'user_id' in login_session:
-        medicos_controller.delete_medico(id)
-        return redirect(url_for('list_medicos'))
-    return redirect(url_for('login'))
-
-
-# Nova rota de listar médicos utilizando o MedicoController
 @app.route('/medico')
 def listar_medicos():
     # Obtém a lista de médicos do MedicoController
     medicos = medico_controller.listar_medicos()
     return render_template('medico.html', medicos=medicos)
 
+@app.route('/medicos/novo', methods=['POST'])
+def novo_medico():
+    if 'user_id' in login_session:
+        nome = request.form['nome']
+        crm = request.form['crm']
+        especialidade_id = request.form.get('especialidade', 1)
+        medico_controller.inserir_medico(nome, crm, [especialidade_id])
+        return redirect(url_for('list_medicos'))
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
