@@ -1,5 +1,4 @@
-# Importe a classe Especialidade se estiver em outro arquivo
-from models.especialidades import Especialidade
+# especialidades_controller.py
 from engine.database_fetchall import DatabaseFetchAll
 
 class Especialidade:
@@ -16,7 +15,7 @@ class EspecialidadeController:
         query = f"INSERT INTO public.especialidades (nome) VALUES ('{nome.upper()}')"
         self.db.execute_query_ddl(query)
 
-    def read_especialidades(self):
+    def listar_especialidades(self):
         query = "SELECT id, nome, dt_criacao FROM public.especialidades WHERE dt_exclusao IS NULL"
         rows = self.db.execute_query_df(query)
         especialidades = [Especialidade(row['id'], row['nome'], row['dt_criacao']) for index, row in rows.iterrows()]

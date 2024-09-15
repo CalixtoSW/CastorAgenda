@@ -1,3 +1,4 @@
+<!-- medico.html -->
 {% extends 'base.html' %}
 
 {% block content %}
@@ -40,7 +41,8 @@
                 <td>{{ medico.crm }}</td>
                 <td>{{ medico.especialidades }}</td>
                 <td>
-                    <a href="{{ url_for('update_medico', id=medico.id) }}" class="btn btn-warning">Editar</a>
+                    <!-- Atualizado para a rota de edição -->
+                    <a href="{{ url_for('editar_medico', id_medico=medico.id) }}" class="btn btn-warning">Editar</a>
                     <a href="{{ url_for('delete_medico', id=medico.id) }}" class="btn btn-danger">Excluir</a>
                 </td>
             </tr>

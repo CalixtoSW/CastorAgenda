@@ -1,3 +1,4 @@
+# CastorAgenda/controllers/app_context.py
 from engine.database_fetchall import DatabaseFetchAll
 from engine.config_db import DatabaseConfig
 from controllers.medico_controller import MedicoController
@@ -12,7 +13,7 @@ class AppContext:
         self.medico_controller = MedicoController(self.db_fetch_all)
 
     def get_medico_controller(self):
-        # Retorna a instância do MedicoController
+        """Retorna a instância do MedicoController"""
         return self.medico_controller
 
 # Cria uma instância única de AppContext que pode ser usada globalmente

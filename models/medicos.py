@@ -1,8 +1,9 @@
-# Castor_Agenda/models/medicos.py
 from sqlalchemy import Column, Integer, String, TIMESTAMP, func
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, backref
 
 Base = declarative_base()
+
 
 class Medico(Base):
     __tablename__ = 'medicos'
@@ -10,3 +11,10 @@ class Medico(Base):
     nome = Column(String(100), nullable=False)
     dt_criacao = Column(TIMESTAMP, server_default=func.now())
     dt_exclusao = Column(TIMESTAMP, nullable=True)
+
+    # Relacionamento com especialidades através da tabela associativa
+    especialidades = relationship(
+        'Especialidade',
+        secondary='especialidade_medico',
+        back_populates='medicos'
+    )
