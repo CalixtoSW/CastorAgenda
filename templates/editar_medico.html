@@ -1,38 +1,49 @@
-{# editar_medico.html #}
 {% extends 'base.html' %}
 
 {% block content %}
 <div class="container mt-5">
     <h2>Editar Médico</h2>
 
-    <form action="{{ url_for('editar_medico', id_medico=medico.id) }}" method="POST">
+    <form action="{{ url_for('editar_medico', id_medico=medico['id']) }}" method="POST">
         <div class="form-group">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" value="{{ medico.nome }}" required>
+            <input type="text" class="form-control" id="nome" name="nome" value="{{ medico['nome'] }}" required>
         </div>
         <div class="form-group">
             <label for="crm">CRM</label>
-            <input type="text" class="form-control" id="crm" name="crm" value="{{ medico.crm }}" required>
+            <input type="text" class="form-control" id="crm" name="crm" value="{{ medico['crm'] }}" required>
         </div>
         <div class="form-group">
             <label for="especialidades">Especialidades</label>
             <div id="especialidades-list">
                 {% for especialidade in especialidades %}
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="especialidades" value="{{ especialidade.id }}" {% if especialidade.id in especialidades_do_medico %} checked {% endif %}>
-                        <label class="form-check-label">{{ especialidade.nome }}</label>
+                        <input class="form-check-input" type="checkbox" name="especialidades" value="{{ especialidade.id }}" id="especialidade-{{ especialidade.id }}">
+                        <label class="form-check-label" for="especialidade-{{ especialidade.id }}">{{ especialidade.nome }}</label>
                     </div>
                 {% endfor %}
             </div>
-            <button type="button" class="btn btn-secondary mt-2" id="btn-adicionar-especialidade">Adicionar Especialidade</button>
+            <button type="button" class="btn btn-secondary mt-2" id="btn-adicionar-especialidade" onclick="window.location.href='{{ url_for('adicionar_especialidade', id_medico=medico['id']) }}'">Adicionar Especialidade</button>
         </div>
         <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="{{ url_for('listar_medicos') }}" class="btn btn-secondary ml-2">Voltar</a>
     </form>
-
-    <script>
-        document.getElementById('btn-adicionar-especialidade').addEventListener('click', function() {
-            // Lógica para adicionar uma nova especialidade
-        });
-    </script>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var especialidadesSelecionadas = {{ especialidades_do_medico | tojson | safe }};
+
+    // Debugging: Exibe os IDs das especialidades no console
+    console.log('IDs das especialidades selecionadas:', especialidadesSelecionadas);
+
+    especialidadesSelecionadas.forEach(function(id) {
+        var checkbox = document.getElementById('especialidade-' + id);
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+    });
+});
+</script>
+
 {% endblock %}

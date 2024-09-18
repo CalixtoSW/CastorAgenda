@@ -116,18 +116,24 @@ def editar_medico(id_medico):
     if request.method == 'POST':
         nome = request.form['nome']
         crm = request.form['crm']
-        especialidades = request.form.getlist('especialidades')  # Ajuste conforme necessário
-        medico_controller.editar_medico(id_medico, nome, crm, especialidades)
+        especialidades_selecionadas = request.form.getlist('especialidades')
+        medico_controller.editar_medico(id_medico, nome, crm, especialidades_selecionadas)
         return redirect(url_for('listar_medicos'))
 
+    # Certifique-se de que 'medico_controller' é uma instância válida
     medico = medico_controller.buscar_medico_por_id(id_medico)
     if medico is None:
         return "Médico não encontrado", 404
 
-    # Ajuste conforme necessário para garantir que 'especialidades' esteja presente
-    especialidades_do_medico = medico.get('especialidades', [])
+    todas_especialidades = especialidade_controller.listar_especialidades()
+    especialidades_do_medico = [e['id'] for e in medico.get('especialidades', [])]
 
-    return render_template('editar_medico.html', medico=medico, especialidades=especialidades_do_medico)
+    # Debugging
+    print('Especialidades do médico:', especialidades_do_medico)
+
+    return render_template('editar_medico.html', medico=medico, especialidades=todas_especialidades, especialidades_do_medico=especialidades_do_medico)
+
+
 
 @app.route('/medicos/delete/<int:id>', methods=['POST'])
 def delete_medico(id):
@@ -135,6 +141,18 @@ def delete_medico(id):
         medico_controller.delete_medico(id)
         return redirect(url_for('listar_medicos'))
     return redirect(url_for('login'))
+
+@app.route('/medicos/<int:id_medico>/especialidade/nova', methods=['GET', 'POST'])
+def adicionar_especialidade(id_medico):
+    if request.method == 'POST':
+        nome_especialidade = request.form['nome']
+        especialidade_controller.create_especialidade(nome_especialidade)
+        # Redirecione para onde for necessário após adicionar a especialidade
+        return redirect(url_for('editar_medico', id_medico=id_medico))
+
+    return render_template('adicionar_especialidade.html', medico={'id': id_medico})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

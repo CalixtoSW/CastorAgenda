@@ -12,7 +12,6 @@ class Medico(Base):
     dt_criacao = Column(TIMESTAMP, server_default=func.now())
     dt_exclusao = Column(TIMESTAMP, nullable=True)
 
-    # Relacionamento com especialidades através da tabela associativa
     especialidades = relationship(
         'Especialidade',
         secondary='especialidade_medico',

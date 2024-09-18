@@ -1,0 +1,59 @@
+#tree .\CastorAgenda\ /A /F | Out-String -Stream | Where-Object { $_ -notmatch '.venv|.idea' } > estrutura.txt
+
+C:\CASTROSW\CASTORAGENDA
+|   CastorAgenda.py
+|   requirements.txt
+|
++---controllers
+|   |   app_context.py
+|   |   especialidades_controller.py
+|   |   especialidade_medico_controller.py
+|   |   medico_controller.py
+|   |   usuarios_controller.py
+|   |   __init__.py
+|   |
++---doc
+|       escopo.txt
+|
++---engine
+|   |   .env
+|   |   config_db.py
+|   |   conn.py
+|   |   database_fetchall.py
+|   |   exemplo.py
+|   |   __init__.py
+|   |
+|   \---__pycache__
+|           config_db.cpython-311.pyc
+|           database_fetchall.cpython-311.pyc
+|           __init__.cpython-311.pyc
+|
++---models
+|   |   agendamentos.py
+|   |   especialidades.py
+|   |   especialidade_medico.py
+|   |   medicos.py
+|   |   salas.py
+|   |   usuarios.py
+|   |   __init__.py
+|   |
+|   \---__pycache__
+|           especialidades.cpython-311.pyc
+|           medicos.cpython-311.pyc
+|           __init__.cpython-311.pyc
+|
++---static
+|       style.css
+|
++---templates
+|       agenda.html
+|       base.html
+|       editar_especialidade.html
+|       editar_medico.html
+|       especialidades.html
+|       index.html
+|       login.html
+|       medico.html
+|       medico_form.html
+|       navbar.html
+|       register.html

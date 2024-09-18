@@ -1,4 +1,3 @@
-# especialidades_controller.py
 from engine.database_fetchall import DatabaseFetchAll
 
 class Especialidade:

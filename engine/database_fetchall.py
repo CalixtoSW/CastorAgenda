@@ -60,6 +60,23 @@ class DatabaseFetchAll:
         finally:
             session.close()
 
+    def execute_query_dict(self, query: str, params=None):
+        """Executa uma consulta SQL e retorna os resultados como uma lista de dicionários."""
+        session: Session = self.SessionLocal()
+        try:
+            # Converte os parâmetros para um formato aceito pela SQLAlchemy
+            if params and isinstance(params, tuple):
+                result = session.execute(text(query), params)
+            else:
+                result = session.execute(text(query), params or {})
+
+            if result.keys():  # Verifica se a consulta retornou resultados
+                result_dict = [dict(zip(result.keys(), row)) for row in result.fetchall()]
+                return result_dict
+            return []
+        finally:
+            session.close()
+
     def execute_query_fetchone_commit(self, query: str, params=None):
         """Executa uma consulta SQL, faz o commit e retorna o primeiro valor da linha."""
         session: Session = self.SessionLocal()
