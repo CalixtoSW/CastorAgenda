@@ -57,9 +57,10 @@ class AgendamentoController:
         agendamentos = self.db_fetch_all.execute_query_zip(query, {'data': data})
         return agendamentos
 
-    def listar_medicos(self):
+    def listar_medicos_combo(self):
         query = "SELECT id, nome FROM public.medicos WHERE dt_exclusao IS NULL ORDER BY nome"
         medicos = self.db_fetch_all.execute_query_zip(query)
+        # Diretamente retornando medicos, já que eles já estão no formato desejado
         return medicos
 
     def listar_salas(self):

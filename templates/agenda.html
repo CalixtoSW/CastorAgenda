@@ -97,45 +97,79 @@ $(document).ready(function() {
         ],
         eventClick: function(calEvent, jsEvent, view) {
             var date = calEvent.start.format('YYYY-MM-DD');
-            // Fetch event details via AJAX
-            $.get('/agendamentos/' + date, function(data) {
-                var modalBody = $('#agendamentosModal').find('.modal-body');
-                modalBody.html('');
-                if (data.length > 0) {
-                    data.forEach(function(agendamento) {
-                        modalBody.append(`<p>Médico: ${agendamento.medico}, Hora: ${agendamento.hora}, Sala: ${agendamento.sala}, Paciente: ${agendamento.paciente}</p>`);
-                    });
-                } else {
-                    modalBody.append('<p>Nenhum agendamento.</p>');
+
+            $.ajax({
+                url: '/agendamentos/' + date,
+                method: 'GET',
+                success: function(data) {
+                    var modalBody = $('#agendamentosModal').find('.modal-body');
+                    modalBody.html('');
+
+                    if (!data || !Array.isArray(data)) {
+                        modalBody.append('<p>Nenhum agendamento.</p>');
+                    } else {
+                        data.forEach(function(agendamento) {
+                            modalBody.append(`<p>Médico: ${agendamento.medico}, Hora: ${agendamento.hora}, Sala: ${agendamento.sala}, Paciente: ${agendamento.paciente}</p>`);
+                        });
+                    }
+                    $('#agendamentosModal').modal('show');
+                },
+                error: function() {
+                    console.error('Erro ao buscar agendamentos.');
+                    $('#agendamentosModal').find('.modal-body').html('<p>Erro ao buscar agendamentos.</p>');
+                    $('#agendamentosModal').modal('show');
                 }
-                $('#agendamentosModal').modal('show');
             });
         }
     });
 });
 
 $(document).ready(function() {
-    $('#cadastrarModal').on('show.bs.modal', function (e) {
-        $.get('{{ url_for("cadastrar_agendamento") }}', function (data) {
+    $('#cadastrarModal').on('show.bs.modal', function(e) {
+        $.get('/agendamento/cadastrar', function(data) {
+            console.log('Dados recebidos:', data); // Log completo para inspecionar a resposta
+
+            // Limpando o conteúdo dos selects antes de preenchê-los
             $('#medico_id').html('<option value="" disabled selected>Selecione um médico</option>');
             $('#sala_id').html('<option value="" disabled selected>Selecione uma sala</option>');
             $('#paciente_id').html('<option value="" disabled selected>Selecione um paciente</option>');
 
-            data.medicos.forEach(function (medico) {
-                $('#medico_id').append(new Option(medico.nome, medico.id));
-            });
-            data.salas.forEach(function (sala) {
-                $('#sala_id').append(new Option(sala.nome, sala.id));
-            });
-            data.pacientes.forEach(function (paciente) {
-                $('#paciente_id').append(new Option(paciente.nome, paciente.id_paciente));
-            });
+            // Verifica se 'medicos', 'salas', e 'pacientes' estão definidos e são arrays
+            if (data.medicos && Array.isArray(data.medicos)) {
+                data.medicos.forEach(function(medico) {
+                    $('#medico_id').append(new Option(medico.nome, medico.id));
+                });
+            } else {
+                console.error('Dados de médicos inválidos ou indefinidos:', data.medicos);
+            }
+
+            if (data.salas && Array.isArray(data.salas)) {
+                data.salas.forEach(function(sala) {
+                    $('#sala_id').append(new Option(sala.nome, sala.id));
+                });
+            } else {
+                console.error('Dados de salas inválidos ou indefinidos:', data.salas);
+            }
+
+            if (data.pacientes && Array.isArray(data.pacientes)) {
+                data.pacientes.forEach(function(paciente) {
+                    $('#paciente_id').append(new Option(paciente.nome, paciente.id_paciente));
+                });
+            } else {
+                console.error('Dados de pacientes inválidos ou indefinidos:', data.pacientes);
+            }
+        }).fail(function() {
+            console.error('Erro ao buscar dados para cadastro');
         });
     });
 });
+
+
+
 </script>
 
 <!-- Modal para cadastrar novo agendamento -->
+<!-- Certifique-se de que este trecho está no arquivo de template correto (agendamento.html) -->
 <div class="modal fade" id="cadastrarModal" tabindex="-1" role="dialog" aria-labelledby="cadastrarModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -191,4 +225,7 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
+{{ medicos }}
+{{ salas }}
+{{ pacientes }}
 {% endblock %}

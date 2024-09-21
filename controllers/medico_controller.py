@@ -5,7 +5,7 @@ class MedicoController:
     def listar_medicos(self):
         query = "SELECT * FROM public.medicos"
         medicos = self.db_fetch_all.execute_query_zip(query)
-        return medicos
+        return [{'id': medico[0], 'nome': medico[1]} for medico in medicos]
 
     def inserir_medico(self, nome, crm):
         query = "INSERT INTO public.medicos (nome, crm) VALUES (:nome, :crm)"

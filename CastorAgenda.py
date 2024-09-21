@@ -223,24 +223,31 @@ def agenda():
 @app.route('/agendamento/cadastrar', methods=['GET', 'POST'])
 def cadastrar_agendamento():
     if request.method == 'POST':
+        # Lógica para POST (criar agendamento)
         data = request.form['data']
         hora = request.form['hora']
         sala_id = request.form['sala_id']
         medico_id = request.form['medico_id']
         paciente_id = request.form['paciente_id']
-        status_agendamento = request.form['status_agendamento']
 
-        if not data or not hora or not sala_id or not medico_id or not paciente_id or not status_agendamento:
+        if not data or not hora or not sala_id or not medico_id:
             return 'Todos os campos são obrigatórios', 400
 
-        agendamento_controller.cadastrar_agendamento(data, hora, sala_id, medico_id, paciente_id, status_agendamento)
+        agendamento_controller.cadastrar_agendamento(data, hora, sala_id, medico_id, paciente_id)
         return redirect(url_for('agenda'))
 
-    medicos = agendamento_controller.listar_medicos()
+    # GET request - return necessary data in JSON format for AJAX
+    medicos = agendamento_controller.listar_medicos_combo()
     salas = agendamento_controller.listar_salas()
     pacientes = agendamento_controller.listar_pacientes()
-    return render_template('agendamento.html', medicos=medicos, salas=salas, pacientes=pacientes)
 
+    # Debug prints to verificar os dados
+    print('Medicos:', medicos)
+    print('Salas:', salas)
+    print('Pacientes:', pacientes)
+
+    # Retorna os dados como um JSON
+    return jsonify(medicos=medicos, salas=salas, pacientes=pacientes)
 
 @app.route('/agendamento/editar/<int:id>', methods=['GET', 'POST'])
 def editar_agendamento(id):
@@ -293,4 +300,5 @@ def listar_agendamentos(data):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8090)
+
