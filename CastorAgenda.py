@@ -8,6 +8,7 @@ from controllers.especialidades_controller import EspecialidadeController
 from controllers.medico_controller import MedicoController
 from controllers.sala_controller import SalaController
 from controllers.paciente_controller import PacienteController
+from controllers.agendamento_controller import AgendamentoController
 
 
 
@@ -24,6 +25,7 @@ especialidade_controller = EspecialidadeController(db_fetch_all)
 medico_controller = MedicoController(db_fetch_all)
 sala_controller = SalaController(db_fetch_all)
 paciente_controller = PacienteController(db_fetch_all)
+agendamento_controller = AgendamentoController(db_fetch_all)
 
 @app.route('/')
 def index():
@@ -49,11 +51,11 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html')
 
-@app.route('/agenda')
-def agenda():
-    if 'user_id' in login_session:
-        return render_template('agenda.html')
-    return redirect(url_for('login'))
+# @app.route('/agenda')
+# def agenda():
+#     if 'user_id' in login_session:
+#         return render_template('agenda.html')
+#     return redirect(url_for('login'))
 
 @app.route('/especialidades', methods=['GET', 'POST'])
 def especialidades():
@@ -224,6 +226,41 @@ def editar_paciente(id):
 def excluir_paciente(id):
     paciente_controller.excluir_paciente(id)
     return redirect(url_for('listar_pacientes'))
+
+@app.route('/agenda', methods=['GET'])
+def agenda():
+    agendamentos = agendamento_controller.listar_agendamentos()
+    return render_template('agenda.html', agendamentos=agendamentos)
+
+@app.route('/agendamento/cadastrar', methods=['GET', 'POST'])
+def cadastrar_agendamento():
+    if request.method == 'POST':
+        data = request.form['data']
+        hora = request.form['hora']
+        sala_id = request.form['sala_id']
+        medico_id = request.form['medico_id']
+        paciente_id = request.form['paciente_id']
+        agendamento_controller.cadastrar_agendamento(data, hora, sala_id, medico_id, paciente_id)
+        return redirect(url_for('agenda'))
+    return render_template('agendamento.html')  # Esta é a página de formulário de agendamento
+
+@app.route('/agendamento/editar/<int:id>', methods=['GET', 'POST'])
+def editar_agendamento(id):
+    if request.method == 'POST':
+        data = request.form['data']
+        hora = request.form['hora']
+        sala_id = request.form['sala_id']
+        medico_id = request.form['medico_id']
+        paciente_id = request.form['paciente_id']
+        agendamento_controller.editar_agendamento(id, data, hora, sala_id, medico_id, paciente_id)
+        return redirect(url_for('agenda'))
+    agendamento = agendamento_controller.buscar_agendamento_por_id(id)
+    return render_template('editar_agendamento.html', agendamento=agendamento)
+
+@app.route('/agendamento/excluir/<int:id>', methods=['POST'])
+def excluir_agendamento(id):
+    agendamento_controller.excluir_agendamento(id)
+    return redirect(url_for('agenda'))
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -4,6 +4,8 @@ from engine.config_db import DatabaseConfig
 from controllers.medico_controller import MedicoController
 from controllers.sala_controller import SalaController
 from controllers.paciente_controller import PacienteController
+from controllers.agendamento_controller import AgendamentoController
+
 
 class AppContext:
     def __init__(self):
@@ -13,6 +15,7 @@ class AppContext:
         self.medico_controller = MedicoController(self.db_fetch_all)
         self.sala_controller = SalaController(self.db_fetch_all)
         self.paciente_controller = PacienteController(self.db_fetch_all)
+        self.agendamento_controller = AgendamentoController(self.db_fetch_all)
 
     def get_medico_controller(self):
         return self.medico_controller
@@ -22,5 +25,8 @@ class AppContext:
 
     def get_paciente_controller(self):
         return self.paciente_controller
+
+    def get_agendamento_controller(self):
+        return self.agendamento_controller
 
 app_context = AppContext()

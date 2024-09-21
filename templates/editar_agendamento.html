@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Editar Agendamento</h2>
+
+    <form action="{{ url_for('editar_agendamento', id=agendamento.id) }}" method="POST">
+        <div class="form-group">
+            <label for="data">Data</label>
+            <input type="date" class="form-control" id="data" name="data" value="{{ agendamento.data }}" required>
+        </div>
+        <div class="form-group">
+            <label for="hora">Hora</label>
+            <input type="time" class="form-control" id="hora" name="hora" value="{{ agendamento.hora }}" step="900" required>
+        </div>
+        <div class="form-group">
+            <label for="sala_id">Sala</label>
+            <select class="form-control" id="sala_id" name="sala_id" required>
+                <!-- Preencher com as salas disponíveis -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="medico_id">Médico</label>
+            <select class="form-control" id="medico_id" name="medico_id" required>
+                <!-- Preencher com os médicos disponíveis -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="paciente_id">Paciente</label>
+            <select class="form-control" id="paciente_id" name="paciente_id" required>
+                <!-- Preencher com os pacientes disponíveis -->
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="{{ url_for('agenda') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

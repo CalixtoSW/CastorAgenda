@@ -31,11 +31,47 @@
         <h1>Bem-vindo à sua Agenda</h1>
     </header>
     <main>
-        <h2>Lista de Compromissos</h2>
-        <p>Você ainda não possui compromissos agendados.</p>
+        <div class="d-flex justify-content-between mb-3">
+            <button id="btn-calendario" class="btn btn-primary">Calendário</button>
+            <button id="btn-lista" class="btn btn-secondary">Lista</button>
+        </div>
+        <div id="calendario-container">
+            <!-- Calendário deve ser implementado aqui -->
+            <p>Verificação de Calendário aqui...</p>
+        </div>
+        <div id="lista-container" class="d-none">
+            <h2>Lista de Compromissos</h2>
+            {% if agendamentos %}
+                <ul class="list-group">
+                    {% for agendamento in agendamentos %}
+                        <li class="list-group-item">
+                            {{ agendamento.data }} {{ agendamento.hora }} -
+                            Sala: {{ agendamento.sala }}, Médico: {{ agendamento.medico }}, Paciente: {{ agendamento.paciente }}
+                            <a href="{{ url_for('editar_agendamento', id=agendamento.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                            <form action="{{ url_for('excluir_agendamento', id=agendamento.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Você ainda não possui compromissos agendados.</p>
+            {% endif %}
+        </div>
     </main>
     <footer class="mt-5">
         <p>&copy; 2024. Todos os direitos reservados.</p>
     </footer>
 </div>
+
+<script>
+document.getElementById('btn-calendario').addEventListener('click', function() {
+    document.getElementById('calendario-container').classList.remove('d-none');
+    document.getElementById('lista-container').classList.add('d-none');
+});
+document.getElementById('btn-lista').addEventListener('click', function() {
+    document.getElementById('calendario-container').classList.add('d-none');
+    document.getElementById('lista-container').classList.remove('d-none');
+});
+</script>
 {% endblock %}
