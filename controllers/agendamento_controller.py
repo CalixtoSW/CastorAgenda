@@ -43,3 +43,15 @@ class AgendamentoController:
         query = "SELECT * FROM public.agendamentos WHERE id = :id_agendamento AND dt_exclusao IS NULL"
         agendamento = self.db_fetch_all.execute_query_zip(query, {'id_agendamento': id_agendamento})
         return agendamento[0] if agendamento else None
+
+    def buscar_agendamentos_por_dia(self, data):
+        query = """
+        SELECT a.id, a.data, a.hora, s.nome AS sala, m.nome AS medico, p.nome AS paciente
+        FROM public.agendamentos a
+        JOIN public.salas s ON a.sala_id = s.id
+        JOIN public.medicos m ON a.medico_id = m.id
+        JOIN public.paciente p ON a.paciente_id = p.id_paciente
+        WHERE a.data = :data AND a.dt_exclusao IS NULL
+        """
+        agendamentos = self.db_fetch_all.execute_query_zip(query, {'data': data})
+        return agendamentos

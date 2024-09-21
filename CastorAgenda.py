@@ -232,17 +232,17 @@ def agenda():
     agendamentos = agendamento_controller.listar_agendamentos()
     return render_template('agenda.html', agendamentos=agendamentos)
 
-@app.route('/agendamento/cadastrar', methods=['GET', 'POST'])
+
+@app.route('/agendamento/cadastrar', methods=['POST'])
 def cadastrar_agendamento():
-    if request.method == 'POST':
-        data = request.form['data']
-        hora = request.form['hora']
-        sala_id = request.form['sala_id']
-        medico_id = request.form['medico_id']
-        paciente_id = request.form['paciente_id']
-        agendamento_controller.cadastrar_agendamento(data, hora, sala_id, medico_id, paciente_id)
-        return redirect(url_for('agenda'))
-    return render_template('agendamento.html')  # Esta é a página de formulário de agendamento
+    data = request.form['data']
+    hora = request.form['hora']
+    sala_id = request.form['sala_id']
+    medico_id = request.form['medico_id']
+    paciente_id = request.form['paciente_id']
+    agendamento_controller.cadastrar_agendamento(data, hora, sala_id, medico_id, paciente_id)
+    return redirect(url_for('agenda'))
+
 
 @app.route('/agendamento/editar/<int:id>', methods=['GET', 'POST'])
 def editar_agendamento(id):
@@ -261,6 +261,12 @@ def editar_agendamento(id):
 def excluir_agendamento(id):
     agendamento_controller.excluir_agendamento(id)
     return redirect(url_for('agenda'))
+
+@app.route('/agendamento/buscar/<data>', methods=['GET'])
+def buscar_agendamentos_por_dia(data):
+    agendamentos = agendamento_controller.buscar_agendamentos_por_dia(data)
+    return jsonify(agendamentos)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
