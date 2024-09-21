@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Editar Sala</h2>
+
+    <form action="{{ url_for('editar_sala', id=sala.id) }}" method="POST">
+        <div class="form-group">
+            <label for="nome">Nome da Sala</label>
+            <input type="text" class="form-control" id="nome" name="nome" value="{{ sala.nome }}" required>
+        </div>
+        <div class="form-group">
+            <label for="numero-sala">Numero</label>
+            <input type="text" class="form-control" id="numero-sala" name="numero" value="{{ sala.numero }}" required>
+        </div>
+        <div class="form-group">
+            <label for="capacidade">Capacidade</label>
+            <input type="text" class="form-control" id="capacidade" name="capacidade" value="{{ sala.capacidade }}" required>
+        </div>
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="{{ url_for('listar_salas') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

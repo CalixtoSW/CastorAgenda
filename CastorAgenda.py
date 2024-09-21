@@ -4,20 +4,20 @@ from engine.database_fetchall import DatabaseFetchAll
 from controllers.usuarios_controller import UsuarioController
 from controllers.especialidades_controller import EspecialidadeController
 from controllers.medico_controller import MedicoController
+from controllers.sala_controller import SalaController
 from engine.config_db import DatabaseConfig
 
 app = Flask(__name__)
 app.secret_key = '1245fvcx323423423dfdscxvxvcxgerr43'
 
-# Configuração do banco de dados e instância do DatabaseFetchAll
 config = DatabaseConfig()
 DATABASE_URL = config.get_uri()
 db_fetch_all = DatabaseFetchAll(DATABASE_URL)
 
-# Inicialização dos controladores com a conexão configurada
 usuario_controller = UsuarioController(db_fetch_all)
 especialidade_controller = EspecialidadeController(db_fetch_all)
 medico_controller = MedicoController(db_fetch_all)
+sala_controller = SalaController(db_fetch_all)
 
 @app.route('/')
 def index():
@@ -133,8 +133,6 @@ def editar_medico(id_medico):
 
     return render_template('editar_medico.html', medico=medico, especialidades=todas_especialidades, especialidades_do_medico=especialidades_do_medico)
 
-
-
 @app.route('/medicos/delete/<int:id>', methods=['POST'])
 def delete_medico(id):
     if 'user_id' in login_session:
@@ -151,6 +149,38 @@ def adicionar_especialidade(id_medico):
         return redirect(url_for('editar_medico', id_medico=id_medico))
 
     return render_template('adicionar_especialidade.html', medico={'id': id_medico})
+
+@app.route('/sala', methods=['GET'])
+def listar_salas():
+    salas = sala_controller.listar_salas()
+    return render_template('sala.html', salas=salas)
+
+@app.route('/sala/nova', methods=['POST'])
+def nova_sala():
+    nome = request.form.get('nome')
+    numero = request.form.get('numero-sala')
+    capacidade = request.form.get('capacidade')
+    sala_controller.cadastrar_sala(nome, numero, capacidade)
+    return redirect(url_for('listar_salas'))
+
+
+@app.route('/sala/editar/<int:id>', methods=['GET', 'POST'])
+def editar_sala(id):
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        numero = request.form.get('numero')
+        capacidade = request.form.get('capacidade')
+        sala_controller.editar_sala(id, nome, numero, capacidade)
+        return redirect(url_for('listar_salas'))
+
+    sala = sala_controller.buscar_sala_por_id(id)
+    return render_template('editar_sala.html', sala=sala)
+
+
+@app.route('/sala/excluir/<int:id>', methods=['POST'])
+def excluir_sala(id):
+    sala_controller.excluir_sala(id)
+    return redirect(url_for('listar_salas'))
 
 
 

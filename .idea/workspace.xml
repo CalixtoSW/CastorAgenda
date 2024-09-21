@@ -4,18 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Editar dados da entidade medico&#10;Está funcionando">
-      <change afterPath="$PROJECT_DIR$/controllers/especialidade_medico_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/escopo.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/especialidade_medico.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/adicionar_especialidade.html" afterDir="false" />
+    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Processo de Incluir e Remover Especialdiades fucnionando 100%">
+      <change afterPath="$PROJECT_DIR$/controllers/sala_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/editar_sala.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/sala.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CastorAgenda.py" beforeDir="false" afterPath="$PROJECT_DIR$/CastorAgenda.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/especialidades_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/especialidades_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/medico_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/medico_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/database_fetchall.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/database_fetchall.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/medicos.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/medicos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/editar_medico.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/editar_medico.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/app_context.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/app_context.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/salas.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/salas.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +248,11 @@
       <workItem from="1726320502148" duration="5169000" />
       <workItem from="1726355262891" duration="699000" />
       <workItem from="1726484337876" duration="336000" />
-      <workItem from="1726612790578" duration="7471000" />
+      <workItem from="1726612790578" duration="7624000" />
+      <workItem from="1726648871436" duration="599000" />
+      <workItem from="1726656381833" duration="1197000" />
+      <workItem from="1726680891859" duration="5549000" />
+      <workItem from="1726915852115" duration="5182000" />
     </task>
     <task id="LOCAL-00001" summary="Start Flask Projeto de Agendas Web em python para consultorios médicos de forma simples e facil gerenciar">
       <option name="closed" value="true" />
@@ -350,7 +350,23 @@
       <option name="project" value="LOCAL" />
       <updated>1726443737312</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Processo de Incluir e Remover Especialdiades fucnionando 100%">
+      <option name="closed" value="true" />
+      <created>1726620355907</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1726620355907</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Processo de Incluir e Remover Especialdiades fucnionando 100%">
+      <option name="closed" value="true" />
+      <created>1726687845844</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1726687845844</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -378,7 +394,8 @@
     <MESSAGE value="Removido Arquivos" />
     <MESSAGE value="Atualizando inserção de medicos está funcionando nromal" />
     <MESSAGE value="Editar dados da entidade medico&#10;Está funcionando" />
-    <option name="LAST_COMMIT_MESSAGE" value="Editar dados da entidade medico&#10;Está funcionando" />
+    <MESSAGE value="Processo de Incluir e Remover Especialdiades fucnionando 100%" />
+    <option name="LAST_COMMIT_MESSAGE" value="Processo de Incluir e Remover Especialdiades fucnionando 100%" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CastorAgenda$controller_context.coverage" NAME="controller_context Coverage Results" MODIFIED="1726415947698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
@@ -387,7 +404,7 @@
     <SUITE FILE_PATH="coverage/CastorAgenda$test.coverage" NAME="test Coverage Results" MODIFIED="1726416386525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$app_context__1_.coverage" NAME="app_context (1) Coverage Results" MODIFIED="1726416156185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$database_fetchall.coverage" NAME="database_fetchall Coverage Results" MODIFIED="1726341712850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
-    <SUITE FILE_PATH="coverage/CastorAgenda$Flask__CastorAgenda_py_.coverage" NAME="Flask (CastorAgenda.py) Coverage Results" MODIFIED="1726620122828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CastorAgenda$Flask__CastorAgenda_py_.coverage" NAME="Flask (CastorAgenda.py) Coverage Results" MODIFIED="1726920211106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CastorAgenda$medicos_controller.coverage" NAME="medicos_controller Coverage Results" MODIFIED="1726355328640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$exemplo.coverage" NAME="exemplo Coverage Results" MODIFIED="1726326549259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
     <SUITE FILE_PATH="coverage/CastorAgenda$medico_controller.coverage" NAME="medico_controller Coverage Results" MODIFIED="1726442016089" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />

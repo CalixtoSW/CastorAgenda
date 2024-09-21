@@ -1,0 +1,70 @@
+<!-- sala.html -->
+{%  extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+     <h2>Lista de Salas</h2>
+
+    <!-- Botão para adicionar nova sala -->
+    <button class="btn btn-primary mb-3" id="btn-nova-sala">Adicionar Nova Sala</button>
+    <!-- Formulário para inserir nova sala, inicialmente escondido -->
+    <div id="nova-sala-form" style="display: none;">
+        <form action="{{ url_for('nova_sala') }}" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome da Sala</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="numero-sala">Numero</label>
+                <input type="text" class="form-control" id="numero-sala" name="numero-sala" required>
+            </div>
+            <div class="form-group">
+                <label for="capacidade">Capacidade</label>
+                <input type="text" class="form-control" id="capacidade" name="capacidade" required>
+            </div>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <button type="button" class="btn btn-secondary" id="btn-cancelar">Cancelar</button>
+        </form>
+    </div>
+
+    <!-- Tabela de salas -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Número</th>
+                <th>Capacidade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sala in salas %}
+            <tr>
+                <td>{{ sala.nome }}</td>
+                <td>{{ sala.numero }}</td>
+                <td>{{ sala.capacidade }}</td>
+                <td>
+                    <form action="{{ url_for('editar_sala', id=sala['id']) }}" method="GET">
+                        <button type="submit" class="btn btn-warning">Editar</button>
+                    </form>
+                    <form action="{{ url_for('excluir_sala', id=sala['id']) }}" method="post" style="display:inline;">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    <script>
+            // Função para mostrar o formulário de nova sala
+            document.getElementById('btn-nova-sala').addEventListener('click', function() {
+                document.getElementById('nova-sala-form').style.display = 'block';
+            });
+
+            // Função para cancelar a adição de nova sala
+            document.getElementById('btn-cancelar').addEventListener('click', function() {
+                document.getElementById('nova-sala-form').style.display = 'none';
+            });
+    </script>
+{% endblock %}
