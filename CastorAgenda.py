@@ -1,11 +1,16 @@
 # CastorAgenda/CastorAgenda.py
 from flask import Flask, render_template, request, redirect, url_for, session as login_session
 from engine.database_fetchall import DatabaseFetchAll
+from engine.config_db import DatabaseConfig
+
 from controllers.usuarios_controller import UsuarioController
 from controllers.especialidades_controller import EspecialidadeController
 from controllers.medico_controller import MedicoController
 from controllers.sala_controller import SalaController
-from engine.config_db import DatabaseConfig
+from controllers.paciente_controller import PacienteController
+
+
+
 
 app = Flask(__name__)
 app.secret_key = '1245fvcx323423423dfdscxvxvcxgerr43'
@@ -18,6 +23,7 @@ usuario_controller = UsuarioController(db_fetch_all)
 especialidade_controller = EspecialidadeController(db_fetch_all)
 medico_controller = MedicoController(db_fetch_all)
 sala_controller = SalaController(db_fetch_all)
+paciente_controller = PacienteController(db_fetch_all)
 
 @app.route('/')
 def index():
@@ -182,7 +188,42 @@ def excluir_sala(id):
     sala_controller.excluir_sala(id)
     return redirect(url_for('listar_salas'))
 
+@app.route('/pacientes', methods=['GET'])
+def listar_pacientes():
+    pacientes = paciente_controller.listar_pacientes()
+    return render_template('paciente.html', pacientes=pacientes)
 
+@app.route('/paciente/novo', methods=['POST'])
+def cadastrar_paciente():
+    nome = request.form.get('nome')
+    dt_nascimento = request.form.get('dt_nascimento')
+    sexo = request.form.get('sexo')
+    telefone = request.form.get('telefone')
+    email = request.form.get('email')
+    endereco = request.form.get('endereco')
+    paciente_controller.cadastrar_paciente(nome, dt_nascimento, sexo, telefone, email, endereco)
+    return redirect(url_for('listar_pacientes'))
+
+@app.route('/paciente/editar/<int:id>', methods=['GET', 'POST'])
+def editar_paciente(id):
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        dt_nascimento = request.form.get('dt_nascimento')
+        sexo = request.form.get('sexo')
+        telefone = request.form.get('telefone')
+        email = request.form.get('email')
+        endereco = request.form.get('endereco')
+        paciente_controller.editar_paciente(id, nome, dt_nascimento, sexo, telefone, email, endereco)
+        return redirect(url_for('listar_pacientes'))
+
+    paciente = paciente_controller.buscar_paciente_por_id(id)
+    return render_template('editar_paciente.html', paciente=paciente)
+
+
+@app.route('/paciente/excluir/<int:id>', methods=['POST'])
+def excluir_paciente(id):
+    paciente_controller.excluir_paciente(id)
+    return redirect(url_for('listar_pacientes'))
 
 if __name__ == '__main__':
     app.run(debug=True)

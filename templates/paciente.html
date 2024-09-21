@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Lista de Pacientes</h2>
+
+    <!-- Botão para adicionar novo paciente -->
+    <button class="btn btn-primary mb-3" id="btn-novo-paciente">Adicionar Novo Paciente</button>
+    
+    <!-- Formulário para inserir novo paciente, inicialmente escondido -->
+    <div id="novo-paciente-form" style="display: none;">
+        <form action="{{ url_for('cadastrar_paciente') }}" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="dt_nascimento">Data de Nascimento</label>
+                <input type="date" class="form-control" id="dt_nascimento" name="dt_nascimento" required>
+            </div>
+            <div class="form-group">
+                <label for="sexo">Sexo</label>
+                <select class="form-control" id="sexo" name="sexo" required>
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="text" class="form-control" id="telefone" name="telefone">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="endereco">Endereço</label>
+                <input type="text" class="form-control" id="endereco" name="endereco">
+            </div>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <button type="button" class="btn btn-secondary" id="btn-cancelar">Cancelar</button>
+        </form>
+    </div>
+
+    <!-- Tabela de pacientes -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Data de Nascimento</th>
+                <th>Sexo</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Endereço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paciente in pacientes %}
+            <tr>
+                <td>{{ paciente.nome }}</td>
+                <td>{{ paciente.dt_nascimento }}</td>
+                <td>{{ paciente.sexo }}</td>
+                <td>{{ paciente.telefone }}</td>
+                <td>{{ paciente.email }}</td>
+                <td>{{ paciente.endereco }}</td>
+                <td>
+                    <form action="{{ url_for('editar_paciente', id=paciente['id_paciente']) }}" method="GET">
+                        <button type="submit" class="btn btn-warning">Editar</button>
+                    </form>
+                    <form action="{{ url_for('excluir_paciente', id=paciente['id_paciente']) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Função para mostrar o formulário de novo paciente
+    document.getElementById('btn-novo-paciente').addEventListener('click', function() {
+        document.getElementById('novo-paciente-form').style.display = 'block';
+    });
+
+    // Função para cancelar a adição de novo paciente
+    document.getElementById('btn-cancelar').addEventListener('click', function() {
+        document.getElementById('novo-paciente-form').style.display = 'none';
+    });
+</script>
+{% endblock %}
