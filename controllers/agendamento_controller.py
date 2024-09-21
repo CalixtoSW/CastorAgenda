@@ -4,13 +4,13 @@ class AgendamentoController:
 
     def listar_agendamentos(self):
         query = """
-        SELECT a.id, a.data, a.hora, s.nome AS sala, m.nome AS medico, p.nome AS paciente
-        FROM public.agendamentos a
-        JOIN public.salas s ON a.sala_id = s.id
-        JOIN public.medicos m ON a.medico_id = m.id
-        JOIN public.paciente p ON a.paciente_id = p.id_paciente
-        WHERE a.dt_exclusao IS NULL
-        """
+           SELECT a.id, a.data, a.hora, s.nome AS sala, m.nome AS medico, p.nome AS paciente, a.status_agendamento
+           FROM public.agendamentos a
+           JOIN public.salas s ON a.sala_id = s.id
+           JOIN public.medicos m ON a.medico_id = m.id
+           JOIN public.paciente p ON a.paciente_id = p.id_paciente
+           WHERE a.dt_exclusao IS NULL
+           """
         agendamentos = self.db_fetch_all.execute_query_zip(query)
         return agendamentos
 
@@ -23,15 +23,16 @@ class AgendamentoController:
             'data': data, 'hora': hora, 'sala_id': sala_id, 'medico_id': medico_id, 'paciente_id': paciente_id
         })
 
-    def editar_agendamento(self, id_agendamento, data, hora, sala_id, medico_id, paciente_id):
+    def editar_agendamento(self, id_agendamento, data, hora, sala_id, medico_id, paciente_id, status_agendamento):
         query = """
         UPDATE public.agendamentos
-        SET data = :data, hora = :hora, sala_id = :sala_id, medico_id = :medico_id, paciente_id = :paciente_id
+        SET data = :data, hora = :hora, sala_id = :sala_id, medico_id = :medico_id, paciente_id = :paciente_id, status_agendamento = :status_agendamento
         WHERE id = :id_agendamento
         """
         self.db_fetch_all.execute_query_ddl(
             query, {
-                'data': data, 'hora': hora, 'sala_id': sala_id, 'medico_id': medico_id, 'paciente_id': paciente_id, 'id_agendamento': id_agendamento
+                'data': data, 'hora': hora, 'sala_id': sala_id, 'medico_id': medico_id, 'paciente_id': paciente_id,
+                'status_agendamento': status_agendamento, 'id_agendamento': id_agendamento
             }
         )
 

@@ -2,19 +2,11 @@
 
 {% block navbar %}
 <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('agenda') }}">Agenda</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('profile') }}">Perfil</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
-    </li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('agenda') }}">Agenda</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Perfil</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Cadastro
-        </a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastro</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{ url_for('especialidades') }}">Especialidades</a>
             <a class="dropdown-item" href="{{ url_for('listar_medicos') }}">Médicos</a>
@@ -63,16 +55,14 @@
     </footer>
 </div>
 
-<!-- Inclua jQuery primeiro -->
-<script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+<!-- Inclua jQuery e outras bibliotecas -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Inclua Moment.js -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
-<!-- Inclua o FullCalendar -->
+<!-- Inclua FullCalendar -->
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css'/>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/locale/pt-br.js"></script>
-
-
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/locale/pt-br.js"></script>
 <!-- Inclua Bootstrap -->
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 
@@ -103,31 +93,45 @@ $(document).ready(function() {
             $('#hora_inicio').val(moment(start).format('HH:mm'));
         },
         events: [
-            // Aqui você pode adicionar eventos carregados dinamicamente do backend
-        ]
+            // Events pulled from the backend
+        ],
+        eventClick: function(calEvent, jsEvent, view) {
+            var date = calEvent.start.format('YYYY-MM-DD');
+            // Fetch event details via AJAX
+            $.get('/agendamentos/' + date, function(data) {
+                var modalBody = $('#agendamentosModal').find('.modal-body');
+                modalBody.html('');
+                if (data.length > 0) {
+                    data.forEach(function(agendamento) {
+                        modalBody.append(`<p>Médico: ${agendamento.medico}, Hora: ${agendamento.hora}, Sala: ${agendamento.sala}, Paciente: ${agendamento.paciente}</p>`);
+                    });
+                } else {
+                    modalBody.append('<p>Nenhum agendamento.</p>');
+                }
+                $('#agendamentosModal').modal('show');
+            });
+        }
     });
 });
 
 $(document).ready(function() {
-  $('#cadastrarModal').on('show.bs.modal', function (e) {
-    $.get('{{ url_for("novo_agendamento") }}', function(data) {
-      $('#sala_id').empty().append('<option value="" disabled selected>Selecione uma sala</option>');
-      $('#medico_id').empty().append('<option value="" disabled selected>Selecione um médico</option>');
-      $('#paciente_id').empty().append('<option value="" disabled selected>Selecione um paciente</option>');
+    $('#cadastrarModal').on('show.bs.modal', function (e) {
+        $.get('{{ url_for("cadastrar_agendamento") }}', function (data) {
+            $('#medico_id').html('<option value="" disabled selected>Selecione um médico</option>');
+            $('#sala_id').html('<option value="" disabled selected>Selecione uma sala</option>');
+            $('#paciente_id').html('<option value="" disabled selected>Selecione um paciente</option>');
 
-      data.salas.forEach(function(sala) {
-        $('#sala_id').append(`<option value="${sala.id}">${sala.nome}</option>`);
-      });
-
-      data.medicos.forEach(function(medico) {
-        $('#medico_id').append(`<option value="${medico.id}">${medico.nome}</option>`);
-      });
-
-      data.pacientes.forEach(function(paciente) {
-        $('#paciente_id').append(`<option value="${paciente.id_paciente}">${paciente.nome}</option>`);
-      });
+            data.medicos.forEach(function (medico) {
+                $('#medico_id').append(new Option(medico.nome, medico.id));
+            });
+            data.salas.forEach(function (sala) {
+                $('#sala_id').append(new Option(sala.nome, sala.id));
+            });
+            data.pacientes.forEach(function (paciente) {
+                $('#paciente_id').append(new Option(paciente.nome, paciente.id_paciente));
+            });
+        });
     });
-  });
 });
 </script>
 

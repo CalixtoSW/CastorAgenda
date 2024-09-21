@@ -16,23 +16,40 @@
         <div class="form-group">
             <label for="sala_id">Sala</label>
             <select class="form-control" id="sala_id" name="sala_id" required>
-                <!-- Preencher com as salas disponíveis -->
+                <option value="" disabled>Selecione uma sala</option>
+                {% for sala in salas %}
+                    <option value="{{ sala.id }}" {% if agendamento.sala_id == sala.id %}selected{% endif %}>{{ sala.nome }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="form-group">
             <label for="medico_id">Médico</label>
             <select class="form-control" id="medico_id" name="medico_id" required>
-                <!-- Preencher com os médicos disponíveis -->
+                <option value="" disabled>Selecione um médico</option>
+                {% for medico in medicos %}
+                    <option value="{{ medico.id }}" {% if agendamento.medico_id == medico.id %}selected{% endif %}>{{ medico.nome }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="form-group">
             <label for="paciente_id">Paciente</label>
             <select class="form-control" id="paciente_id" name="paciente_id" required>
-                <!-- Preencher com os pacientes disponíveis -->
+                <option value="" disabled>Selecione um paciente</option>
+                {% for paciente in pacientes %}
+                    <option value="{{ paciente.id_paciente }}" {% if agendamento.paciente_id == paciente.id_paciente %}selected{% endif %}>{{ paciente.nome }}</option>
+                {% endfor %}
             </select>
         </div>
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{{ url_for('agenda') }}" class="btn btn-secondary">Cancelar</a>
+        <div class="form-group">
+            <label for="status_agendamento">Status do Agendamento</label>
+            <select class="form-control" id="status_agendamento" name="status_agendamento" required>
+                <option value="agendado" {% if agendamento.status == 'agendado' %}selected{% endif %}>Agendado</option>
+                <option value="cancelado" {% if agendamento.status == 'cancelado' %}selected{% endif %}>Cancelado</option>
+                <option value="concluido" {% if agendamento.status == 'concluido' %}selected{% endif %}>Concluído</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success"><i class="bi bi-save"></i> Salvar</button>
+        <a href="{{ url_for('agenda') }}" class="btn btn-secondary"><i class="bi bi-x-circle"></i> Cancelar</a>
     </form>
 </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 # CastorAgenda/CastorAgenda.py
-from flask import Flask, render_template, request, redirect, url_for, session as login_session
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session as login_session
+
 from engine.database_fetchall import DatabaseFetchAll
 from engine.config_db import DatabaseConfig
 
@@ -227,19 +228,18 @@ def cadastrar_agendamento():
         sala_id = request.form['sala_id']
         medico_id = request.form['medico_id']
         paciente_id = request.form['paciente_id']
+        status_agendamento = request.form['status_agendamento']
 
-        # Validação Simples
-        if not data or not hora or not sala_id or not medico_id or not paciente_id:
+        if not data or not hora or not sala_id or not medico_id or not paciente_id or not status_agendamento:
             return 'Todos os campos são obrigatórios', 400
 
-        agendamento_controller.cadastrar_agendamento(data, hora, sala_id, medico_id, paciente_id)
+        agendamento_controller.cadastrar_agendamento(data, hora, sala_id, medico_id, paciente_id, status_agendamento)
         return redirect(url_for('agenda'))
-    else:
-        medicos = agendamento_controller.listar_medicos()
-        salas = agendamento_controller.listar_salas()
-        pacientes = agendamento_controller.listar_pacientes()
-        return render_template('agendamento.html', medicos=medicos, salas=salas, pacientes=pacientes)
 
+    medicos = agendamento_controller.listar_medicos()
+    salas = agendamento_controller.listar_salas()
+    pacientes = agendamento_controller.listar_pacientes()
+    return render_template('agendamento.html', medicos=medicos, salas=salas, pacientes=pacientes)
 
 
 @app.route('/agendamento/editar/<int:id>', methods=['GET', 'POST'])
@@ -250,15 +250,21 @@ def editar_agendamento(id):
         sala_id = request.form['sala_id']
         medico_id = request.form['medico_id']
         paciente_id = request.form['paciente_id']
+        status_agendamento = request.form['status_agendamento']
 
-        if not data or not hora or not sala_id or not medico_id or not paciente_id:
+        if not data or not hora or not sala_id or not medico_id or not paciente_id or not status_agendamento:
             return 'Todos os campos são obrigatórios', 400
 
-        agendamento_controller.editar_agendamento(id, data, hora, sala_id, medico_id, paciente_id)
+        agendamento_controller.editar_agendamento(id, data, hora, sala_id, medico_id, paciente_id, status_agendamento)
         return redirect(url_for('agenda'))
 
     agendamento = agendamento_controller.buscar_agendamento_por_id(id)
-    return render_template('editar_agendamento.html', agendamento=agendamento)
+    medicos = agendamento_controller.listar_medicos()
+    salas = agendamento_controller.listar_salas()
+    pacientes = agendamento_controller.listar_pacientes()
+
+    return render_template('editar_agendamento.html', agendamento=agendamento, medicos=medicos, salas=salas,
+                           pacientes=pacientes)
 
 
 @app.route('/agendamento/excluir/<int:id>', methods=['POST'])
@@ -279,6 +285,11 @@ def novo_agendamento():
     salas = agendamento_controller.listar_salas()
     pacientes = agendamento_controller.listar_pacientes()
     return render_template('agendamento.html', medicos=medicos, salas=salas, pacientes=pacientes)
+
+@app.route('/agendamentos/<data>', methods=['GET'])
+def listar_agendamentos(data):
+    agendamentos = agendamento_controller.buscar_agendamentos_por_dia(data)
+    return jsonify(agendamentos)
 
 
 if __name__ == '__main__':

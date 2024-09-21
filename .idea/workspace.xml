@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Fase 1 do agendamento interfaces funcionando">
+    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Calendario funcionando fase 2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CastorAgenda.py" beforeDir="false" afterPath="$PROJECT_DIR$/CastorAgenda.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/agendamento_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/agendamento_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/agenda.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/agenda.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/editar_agendamento.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/editar_agendamento.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +250,7 @@
       <workItem from="1726648871436" duration="599000" />
       <workItem from="1726656381833" duration="1197000" />
       <workItem from="1726680891859" duration="5549000" />
-      <workItem from="1726915852115" duration="15470000" />
+      <workItem from="1726915852115" duration="18129000" />
     </task>
     <task id="LOCAL-00001" summary="Start Flask Projeto de Agendas Web em python para consultorios médicos de forma simples e facil gerenciar">
       <option name="closed" value="true" />
@@ -395,7 +396,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726931295295</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Calendario funcionando fase 2">
+      <option name="closed" value="true" />
+      <created>1726940878217</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1726940878217</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -427,7 +436,8 @@
     <MESSAGE value="Cadastro de Salas Finalizado" />
     <MESSAGE value="Cadastro de paciente finalizado" />
     <MESSAGE value="Fase 1 do agendamento interfaces funcionando" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fase 1 do agendamento interfaces funcionando" />
+    <MESSAGE value="Calendario funcionando fase 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Calendario funcionando fase 2" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CastorAgenda$controller_context.coverage" NAME="controller_context Coverage Results" MODIFIED="1726415947698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
@@ -436,7 +446,7 @@
     <SUITE FILE_PATH="coverage/CastorAgenda$test.coverage" NAME="test Coverage Results" MODIFIED="1726416386525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$app_context__1_.coverage" NAME="app_context (1) Coverage Results" MODIFIED="1726416156185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$database_fetchall.coverage" NAME="database_fetchall Coverage Results" MODIFIED="1726341712850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
-    <SUITE FILE_PATH="coverage/CastorAgenda$Flask__CastorAgenda_py_.coverage" NAME="Flask (CastorAgenda.py) Coverage Results" MODIFIED="1726940830825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CastorAgenda$Flask__CastorAgenda_py_.coverage" NAME="Flask (CastorAgenda.py) Coverage Results" MODIFIED="1726942856922" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CastorAgenda$medicos_controller.coverage" NAME="medicos_controller Coverage Results" MODIFIED="1726355328640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$exemplo.coverage" NAME="exemplo Coverage Results" MODIFIED="1726326549259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
     <SUITE FILE_PATH="coverage/CastorAgenda$medico_controller.coverage" NAME="medico_controller Coverage Results" MODIFIED="1726442016089" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
