@@ -70,6 +70,9 @@
 <!-- Inclua o FullCalendar -->
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css'/>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/locale/pt-br.js"></script>
+
+
 <!-- Inclua Bootstrap -->
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 
@@ -86,6 +89,7 @@ document.getElementById('btn-lista').addEventListener('click', function() {
 // Inicializando o calendário
 $(document).ready(function() {
     $('#calendar').fullCalendar({
+        locale: 'pt',
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -102,6 +106,28 @@ $(document).ready(function() {
             // Aqui você pode adicionar eventos carregados dinamicamente do backend
         ]
     });
+});
+
+$(document).ready(function() {
+  $('#cadastrarModal').on('show.bs.modal', function (e) {
+    $.get('{{ url_for("novo_agendamento") }}', function(data) {
+      $('#sala_id').empty().append('<option value="" disabled selected>Selecione uma sala</option>');
+      $('#medico_id').empty().append('<option value="" disabled selected>Selecione um médico</option>');
+      $('#paciente_id').empty().append('<option value="" disabled selected>Selecione um paciente</option>');
+
+      data.salas.forEach(function(sala) {
+        $('#sala_id').append(`<option value="${sala.id}">${sala.nome}</option>`);
+      });
+
+      data.medicos.forEach(function(medico) {
+        $('#medico_id').append(`<option value="${medico.id}">${medico.nome}</option>`);
+      });
+
+      data.pacientes.forEach(function(paciente) {
+        $('#paciente_id').append(`<option value="${paciente.id_paciente}">${paciente.nome}</option>`);
+      });
+    });
+  });
 });
 </script>
 
@@ -127,15 +153,30 @@ $(document).ready(function() {
           </div>
           <div class="form-group">
             <label for="sala_id">Sala</label>
-            <input type="text" class="form-control" id="sala_id" name="sala_id" required>
+            <select class="form-control" id="sala_id" name="sala_id" required>
+              <option value="" disabled selected>Selecione uma sala</option>
+              {% for sala in salas %}
+                <option value="{{ sala.id }}">{{ sala.nome }}</option>
+              {% endfor %}
+            </select>
           </div>
           <div class="form-group">
             <label for="medico_id">Médico</label>
-            <input type="text" class="form-control" id="medico_id" name="medico_id" required>
+            <select class="form-control" id="medico_id" name="medico_id" required>
+              <option value="" disabled selected>Selecione um médico</option>
+              {% for medico in medicos %}
+                <option value="{{ medico.id }}">{{ medico.nome }}</option>
+              {% endfor %}
+            </select>
           </div>
           <div class="form-group">
             <label for="paciente_id">Paciente</label>
-            <input type="text" class="form-control" id="paciente_id" name="paciente_id" required>
+            <select class="form-control" id="paciente_id" name="paciente_id" required>
+              <option value="" disabled selected>Selecione um paciente</option>
+              {% for paciente in pacientes %}
+                <option value="{{ paciente.id_paciente }}">{{ paciente.nome }}</option>
+              {% endfor %}
+            </select>
           </div>
         </div>
         <div class="modal-footer">

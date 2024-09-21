@@ -55,3 +55,18 @@ class AgendamentoController:
         """
         agendamentos = self.db_fetch_all.execute_query_zip(query, {'data': data})
         return agendamentos
+
+    def listar_medicos(self):
+        query = "SELECT id, nome FROM public.medicos WHERE dt_exclusao IS NULL ORDER BY nome"
+        medicos = self.db_fetch_all.execute_query_zip(query)
+        return medicos
+
+    def listar_salas(self):
+        query = "SELECT id, nome FROM public.salas WHERE dt_exclusao IS NULL ORDER BY nome"
+        salas = self.db_fetch_all.execute_query_zip(query)
+        return salas
+
+    def listar_pacientes(self):
+        query = "SELECT id_paciente, nome FROM public.paciente WHERE dt_exclusao IS NULL ORDER BY nome"
+        pacientes = self.db_fetch_all.execute_query_zip(query)
+        return pacientes

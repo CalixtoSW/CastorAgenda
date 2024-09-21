@@ -51,12 +51,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html')
 
-# @app.route('/agenda')
-# def agenda():
-#     if 'user_id' in login_session:
-#         return render_template('agenda.html')
-#     return redirect(url_for('login'))
-
 @app.route('/especialidades', methods=['GET', 'POST'])
 def especialidades():
     if 'user_id' in login_session:
@@ -128,17 +122,12 @@ def editar_medico(id_medico):
         medico_controller.editar_medico(id_medico, nome, crm, especialidades_selecionadas)
         return redirect(url_for('listar_medicos'))
 
-    # Certifique-se de que 'medico_controller' é uma instância válida
     medico = medico_controller.buscar_medico_por_id(id_medico)
     if medico is None:
         return "Médico não encontrado", 404
 
     todas_especialidades = especialidade_controller.listar_especialidades()
     especialidades_do_medico = [e['id'] for e in medico.get('especialidades', [])]
-
-    # Debugging
-    print('Especialidades do médico:', especialidades_do_medico)
-
     return render_template('editar_medico.html', medico=medico, especialidades=todas_especialidades, especialidades_do_medico=especialidades_do_medico)
 
 @app.route('/medicos/delete/<int:id>', methods=['POST'])
@@ -153,9 +142,7 @@ def adicionar_especialidade(id_medico):
     if request.method == 'POST':
         nome_especialidade = request.form['nome']
         especialidade_controller.create_especialidade(nome_especialidade)
-        # Redirecione para onde for necessário após adicionar a especialidade
         return redirect(url_for('editar_medico', id_medico=id_medico))
-
     return render_template('adicionar_especialidade.html', medico={'id': id_medico})
 
 @app.route('/sala', methods=['GET'])
@@ -171,7 +158,6 @@ def nova_sala():
     sala_controller.cadastrar_sala(nome, numero, capacidade)
     return redirect(url_for('listar_salas'))
 
-
 @app.route('/sala/editar/<int:id>', methods=['GET', 'POST'])
 def editar_sala(id):
     if request.method == 'POST':
@@ -183,7 +169,6 @@ def editar_sala(id):
 
     sala = sala_controller.buscar_sala_por_id(id)
     return render_template('editar_sala.html', sala=sala)
-
 
 @app.route('/sala/excluir/<int:id>', methods=['POST'])
 def excluir_sala(id):
@@ -227,21 +212,34 @@ def excluir_paciente(id):
     paciente_controller.excluir_paciente(id)
     return redirect(url_for('listar_pacientes'))
 
+
 @app.route('/agenda', methods=['GET'])
 def agenda():
     agendamentos = agendamento_controller.listar_agendamentos()
     return render_template('agenda.html', agendamentos=agendamentos)
 
 
-@app.route('/agendamento/cadastrar', methods=['POST'])
+@app.route('/agendamento/cadastrar', methods=['GET', 'POST'])
 def cadastrar_agendamento():
-    data = request.form['data']
-    hora = request.form['hora']
-    sala_id = request.form['sala_id']
-    medico_id = request.form['medico_id']
-    paciente_id = request.form['paciente_id']
-    agendamento_controller.cadastrar_agendamento(data, hora, sala_id, medico_id, paciente_id)
-    return redirect(url_for('agenda'))
+    if request.method == 'POST':
+        data = request.form['data']
+        hora = request.form['hora']
+        sala_id = request.form['sala_id']
+        medico_id = request.form['medico_id']
+        paciente_id = request.form['paciente_id']
+
+        # Validação Simples
+        if not data or not hora or not sala_id or not medico_id or not paciente_id:
+            return 'Todos os campos são obrigatórios', 400
+
+        agendamento_controller.cadastrar_agendamento(data, hora, sala_id, medico_id, paciente_id)
+        return redirect(url_for('agenda'))
+    else:
+        medicos = agendamento_controller.listar_medicos()
+        salas = agendamento_controller.listar_salas()
+        pacientes = agendamento_controller.listar_pacientes()
+        return render_template('agendamento.html', medicos=medicos, salas=salas, pacientes=pacientes)
+
 
 
 @app.route('/agendamento/editar/<int:id>', methods=['GET', 'POST'])
@@ -252,20 +250,35 @@ def editar_agendamento(id):
         sala_id = request.form['sala_id']
         medico_id = request.form['medico_id']
         paciente_id = request.form['paciente_id']
+
+        if not data or not hora or not sala_id or not medico_id or not paciente_id:
+            return 'Todos os campos são obrigatórios', 400
+
         agendamento_controller.editar_agendamento(id, data, hora, sala_id, medico_id, paciente_id)
         return redirect(url_for('agenda'))
+
     agendamento = agendamento_controller.buscar_agendamento_por_id(id)
     return render_template('editar_agendamento.html', agendamento=agendamento)
+
 
 @app.route('/agendamento/excluir/<int:id>', methods=['POST'])
 def excluir_agendamento(id):
     agendamento_controller.excluir_agendamento(id)
     return redirect(url_for('agenda'))
 
+
 @app.route('/agendamento/buscar/<data>', methods=['GET'])
 def buscar_agendamentos_por_dia(data):
     agendamentos = agendamento_controller.buscar_agendamentos_por_dia(data)
     return jsonify(agendamentos)
+
+
+@app.route('/agendamento', methods=['GET'])
+def novo_agendamento():
+    medicos = agendamento_controller.listar_medicos()
+    salas = agendamento_controller.listar_salas()
+    pacientes = agendamento_controller.listar_pacientes()
+    return render_template('agendamento.html', medicos=medicos, salas=salas, pacientes=pacientes)
 
 
 if __name__ == '__main__':
