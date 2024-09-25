@@ -54,6 +54,7 @@ class AgendamentoController:
         JOIN public.medicos m ON a.medico_id = m.id
         JOIN public.paciente p ON a.paciente_id = p.id_paciente
         WHERE a.data = :data AND a.dt_exclusao IS NULL
+        ORDER BY a.hora asc
         """
         agendamentos = self.db_fetch_all.execute_query_zip(query, {'data': data})
 

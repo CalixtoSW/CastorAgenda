@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Calendario funcionando fase 2">
+    <list default="true" id="18aa510f-ce56-4d8e-869e-3be99d2632e0" name="Changes" comment="Finalizado Agendamento com calendario">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CastorAgenda.py" beforeDir="false" afterPath="$PROJECT_DIR$/CastorAgenda.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/agendamento_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/agendamento_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/agenda.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/agenda.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -264,7 +261,7 @@
       <workItem from="1726915852115" duration="18129000" />
       <workItem from="1727088644674" duration="1750000" />
       <workItem from="1727175025006" duration="338000" />
-      <workItem from="1727220555243" duration="4442000" />
+      <workItem from="1727220555243" duration="4951000" />
     </task>
     <task id="LOCAL-00001" summary="Start Flask Projeto de Agendas Web em python para consultorios médicos de forma simples e facil gerenciar">
       <option name="closed" value="true" />
@@ -418,7 +415,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726940878217</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Finalizado Agendamento com calendario">
+      <option name="closed" value="true" />
+      <created>1727225031700</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1727225031700</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -451,7 +456,8 @@
     <MESSAGE value="Cadastro de paciente finalizado" />
     <MESSAGE value="Fase 1 do agendamento interfaces funcionando" />
     <MESSAGE value="Calendario funcionando fase 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Calendario funcionando fase 2" />
+    <MESSAGE value="Finalizado Agendamento com calendario" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finalizado Agendamento com calendario" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CastorAgenda$controller_context.coverage" NAME="controller_context Coverage Results" MODIFIED="1726415947698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
@@ -462,7 +468,7 @@
     <SUITE FILE_PATH="coverage/CastorAgenda$agendamento_controller.coverage" NAME="agendamento_controller Coverage Results" MODIFIED="1727089111317" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1726320674157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/CastorAgenda$database_fetchall.coverage" NAME="database_fetchall Coverage Results" MODIFIED="1726341712850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />
-    <SUITE FILE_PATH="coverage/CastorAgenda$Flask__CastorAgenda_py_.coverage" NAME="Flask (CastorAgenda.py) Coverage Results" MODIFIED="1727224449458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CastorAgenda$Flask__CastorAgenda_py_.coverage" NAME="Flask (CastorAgenda.py) Coverage Results" MODIFIED="1727225457649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CastorAgenda$CastorAgenda.coverage" NAME="CastorAgenda Coverage Results" MODIFIED="1726949302558" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CastorAgenda$medicos_controller.coverage" NAME="medicos_controller Coverage Results" MODIFIED="1726355328640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/CastorAgenda$exemplo.coverage" NAME="exemplo Coverage Results" MODIFIED="1726326549259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/engine" />

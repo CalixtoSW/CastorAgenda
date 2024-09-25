@@ -142,7 +142,7 @@ $(document).ready(function() {
         var eventSources = contagens.map(function(item) {
             return {
                 start: item.data,
-                title: `${item.num_agendamentos} Agendamentos`
+                title: `${item.num_agendamentos} C`
             };
         });
 
@@ -163,7 +163,7 @@ $(document).ready(function() {
                     method: 'GET',
                     success: function(data) {
                         var sideBar = $('#sideBar');
-                        sideBar.html(''); // Limpa a barra lateral
+                        sideBar.html('');
 
                         if (!data || !Array.isArray(data) || data.length === 0) {
                             sideBar.append('<p>Nenhum agendamento.</p>');
