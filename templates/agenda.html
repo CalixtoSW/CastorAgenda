@@ -19,7 +19,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <header>
+    <header class="d-flex justify-content-between align-items-center">
         <h1>Bem-vindo à sua Agenda</h1>
     </header>
     <main>
@@ -27,9 +27,22 @@
             <button id="btn-calendario" class="btn btn-primary">Calendário</button>
             <button id="btn-lista" class="btn btn-secondary">Lista</button>
         </div>
-        <div id="calendario-container">
-            <div id='calendar'></div>
+
+        <div class="row">
+            <div id="calendario-container" class="col-md-8">
+                <div id='calendar'></div>
+            </div>
+            <div id="sideBarContainer" class="col-md-4 d-none">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3 id="sideBarTitle" class="mb-3">Agendamentos</h3>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#cadastrarModal">Novo Agendamento</button>
+                    </div>
+                    <div class="card-body" id="sideBar"></div>
+                </div>
+            </div>
         </div>
+
         <div id="lista-container" class="d-none">
             <h2>Lista de Compromissos</h2>
             {% if agendamentos %}
@@ -55,121 +68,7 @@
     </footer>
 </div>
 
-<!-- Inclua jQuery e outras bibliotecas -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Inclua Moment.js -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
-<!-- Inclua FullCalendar -->
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css'/>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/locale/pt-br.js"></script>
-<!-- Inclua Bootstrap -->
-<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-
-<script>
-document.getElementById('btn-calendario').addEventListener('click', function() {
-    document.getElementById('calendario-container').classList.remove('d-none');
-    document.getElementById('lista-container').classList.add('d-none');
-});
-document.getElementById('btn-lista').addEventListener('click', function() {
-    document.getElementById('calendario-container').classList.add('d-none');
-    document.getElementById('lista-container').classList.remove('d-none');
-});
-
-// Inicializando o calendário
-$(document).ready(function() {
-    $('#calendar').fullCalendar({
-        locale: 'pt',
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-        },
-        selectable: true,
-        selectHelper: true,
-        select: function(start, end) {
-            $('#cadastrarModal').modal('show');
-            $('#data_inicio').val(moment(start).format('YYYY-MM-DD'));
-            $('#hora_inicio').val(moment(start).format('HH:mm'));
-        },
-        events: [
-            // Events pulled from the backend
-        ],
-        eventClick: function(calEvent, jsEvent, view) {
-            var date = calEvent.start.format('YYYY-MM-DD');
-
-            $.ajax({
-                url: '/agendamentos/' + date,
-                method: 'GET',
-                success: function(data) {
-                    var modalBody = $('#agendamentosModal').find('.modal-body');
-                    modalBody.html('');
-
-                    if (!data || !Array.isArray(data)) {
-                        modalBody.append('<p>Nenhum agendamento.</p>');
-                    } else {
-                        data.forEach(function(agendamento) {
-                            modalBody.append(`<p>Médico: ${agendamento.medico}, Hora: ${agendamento.hora}, Sala: ${agendamento.sala}, Paciente: ${agendamento.paciente}</p>`);
-                        });
-                    }
-                    $('#agendamentosModal').modal('show');
-                },
-                error: function() {
-                    console.error('Erro ao buscar agendamentos.');
-                    $('#agendamentosModal').find('.modal-body').html('<p>Erro ao buscar agendamentos.</p>');
-                    $('#agendamentosModal').modal('show');
-                }
-            });
-        }
-    });
-});
-
-$(document).ready(function() {
-    $('#cadastrarModal').on('show.bs.modal', function(e) {
-        $.get('/agendamento/cadastrar', function(data) {
-            console.log('Dados recebidos:', data); // Log completo para inspecionar a resposta
-
-            // Limpando o conteúdo dos selects antes de preenchê-los
-            $('#medico_id').html('<option value="" disabled selected>Selecione um médico</option>');
-            $('#sala_id').html('<option value="" disabled selected>Selecione uma sala</option>');
-            $('#paciente_id').html('<option value="" disabled selected>Selecione um paciente</option>');
-
-            // Verifica se 'medicos', 'salas', e 'pacientes' estão definidos e são arrays
-            if (data.medicos && Array.isArray(data.medicos)) {
-                data.medicos.forEach(function(medico) {
-                    $('#medico_id').append(new Option(medico.nome, medico.id));
-                });
-            } else {
-                console.error('Dados de médicos inválidos ou indefinidos:', data.medicos);
-            }
-
-            if (data.salas && Array.isArray(data.salas)) {
-                data.salas.forEach(function(sala) {
-                    $('#sala_id').append(new Option(sala.nome, sala.id));
-                });
-            } else {
-                console.error('Dados de salas inválidos ou indefinidos:', data.salas);
-            }
-
-            if (data.pacientes && Array.isArray(data.pacientes)) {
-                data.pacientes.forEach(function(paciente) {
-                    $('#paciente_id').append(new Option(paciente.nome, paciente.id_paciente));
-                });
-            } else {
-                console.error('Dados de pacientes inválidos ou indefinidos:', data.pacientes);
-            }
-        }).fail(function() {
-            console.error('Erro ao buscar dados para cadastro');
-        });
-    });
-});
-
-
-
-</script>
-
 <!-- Modal para cadastrar novo agendamento -->
-<!-- Certifique-se de que este trecho está no arquivo de template correto (agendamento.html) -->
 <div class="modal fade" id="cadastrarModal" tabindex="-1" role="dialog" aria-labelledby="cadastrarModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -225,7 +124,112 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
-{{ medicos }}
-{{ salas }}
-{{ pacientes }}
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('btn-calendario').addEventListener('click', function() {
+    document.getElementById('calendario-container').classList.remove('d-none');
+    document.getElementById('lista-container').classList.add('d-none');
+});
+document.getElementById('btn-lista').addEventListener('click', function() {
+    document.getElementById('calendario-container').classList.add('d-none');
+    document.getElementById('lista-container').classList.remove('d-none');
+});
+
+$(document).ready(function() {
+    $.get('/agenda/contagem', function(contagens) {
+        var eventSources = contagens.map(function(item) {
+            return {
+                start: item.data,
+                title: `${item.num_agendamentos} Agendamentos`
+            };
+        });
+
+        $('#calendar').fullCalendar({
+            locale: 'pt',
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            events: eventSources,
+            dayClick: function(date, jsEvent, view) {
+                var selectedDate = date.format('YYYY-MM-DD');
+                var formattedDate = date.format('DD/MM/YYYY');
+
+                $.ajax({
+                    url: '/agendamentos/' + selectedDate,
+                    method: 'GET',
+                    success: function(data) {
+                        var sideBar = $('#sideBar');
+                        sideBar.html(''); // Limpa a barra lateral
+
+                        if (!data || !Array.isArray(data) || data.length === 0) {
+                            sideBar.append('<p>Nenhum agendamento.</p>');
+                        } else {
+                            data.forEach(function(agendamento) {
+                                sideBar.append(`
+                                    <p>
+                                        Médico: ${agendamento.medico}<br>
+                                        Hora: ${agendamento.hora}<br>
+                                        Sala: ${agendamento.sala}<br>
+                                        Paciente: ${agendamento.paciente}
+                                    </p>
+                                `);
+                            });
+                        }
+
+                        $('#sideBarTitle').text(' Agendamentos ' + formattedDate);
+                        $('#cadastrarModal #data_inicio').val(selectedDate);
+                        $('#sideBarContainer').removeClass('d-none');
+
+                        // Limpando a seleção anterior
+                        $('#calendar').find('.fc-day, .fc-event-container').removeClass('selected-day');
+                        // Adicionando a classe ao dia clicado
+                        $(jsEvent.currentTarget).closest('.fc-day, .fc-event-container').addClass('selected-day');
+                    },
+                    error: function() {
+                        console.error('Erro ao buscar agendamentos.');
+                        $('#sideBar').html('<p>Erro ao buscar agendamentos.</p>');
+                        $('#sideBarContainer').removeClass('d-none');
+                    }
+                });
+            }
+        });
+    }).fail(function() {
+        console.error('Falha ao carregar contagens de agendamentos.');
+    });
+
+    $('#cadastrarModal').on('show.bs.modal', function(e) {
+        $.get('/agendamento/cadastrar', function(data) {
+            $('#medico_id').html('');
+            $('#sala_id').html('');
+            $('#paciente_id').html('');
+
+            data.medicos.forEach(function(medico) {
+                $('#medico_id').append(new Option(medico.nome, medico.id));
+            });
+            data.salas.forEach(function(sala) {
+                $('#sala_id').append(new Option(sala.nome, sala.id));
+            });
+            data.pacientes.forEach(function(paciente) {
+                $('#paciente_id').append(new Option(paciente.nome, paciente.id_paciente));
+            });
+        }).fail(function() {
+            console.error('Erro ao buscar dados para cadastro');
+        });
+    });
+
+    $('#btn-calendario').click(function() {
+        $('#calendario-container').removeClass('d-none');
+        $('#lista-container').addClass('d-none');
+    });
+
+    $('#btn-lista').click(function() {
+        $('#calendario-container').addClass('d-none');
+        $('#lista-container').removeClass('d-none');
+    });
+});
+</script>
 {% endblock %}

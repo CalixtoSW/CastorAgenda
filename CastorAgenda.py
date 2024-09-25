@@ -299,6 +299,12 @@ def listar_agendamentos(data):
     return jsonify(agendamentos)
 
 
+@app.route('/agenda/contagem', methods=['GET'])
+def contagem_agendamentos():
+    contagens = agendamento_controller.contar_agendamentos_por_dia()
+    return jsonify(contagens)
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=8090)
 

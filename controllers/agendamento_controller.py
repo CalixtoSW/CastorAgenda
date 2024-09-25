@@ -1,3 +1,4 @@
+
 class AgendamentoController:
     def __init__(self, db_fetch_all):
         self.db_fetch_all = db_fetch_all
@@ -55,6 +56,10 @@ class AgendamentoController:
         WHERE a.data = :data AND a.dt_exclusao IS NULL
         """
         agendamentos = self.db_fetch_all.execute_query_zip(query, {'data': data})
+
+        for agendamento in agendamentos:
+            agendamento['hora'] = agendamento['hora'].strftime("%H:%M:%S")
+
         return agendamentos
 
     def listar_medicos_combo(self):
@@ -72,3 +77,13 @@ class AgendamentoController:
         query = "SELECT id_paciente, nome FROM public.paciente WHERE dt_exclusao IS NULL ORDER BY nome"
         pacientes = self.db_fetch_all.execute_query_zip(query)
         return pacientes
+
+    def contar_agendamentos_por_dia(self):
+        query = """
+        SELECT a.data, count(*) AS num_agendamentos
+        FROM public.agendamentos a
+        WHERE a.dt_exclusao IS NULL
+        GROUP BY a.data        
+        """
+        resultados = self.db_fetch_all.execute_query_zip(query)
+        return resultados
